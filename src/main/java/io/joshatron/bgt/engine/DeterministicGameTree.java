@@ -11,10 +11,12 @@ public class DeterministicGameTree {
     private StateNode root;
     private GameEngine engine;
 
-    /*
-     * Functions used in normal game play
-     */
-    public void executeTurn(Turn turn) throws BoardGameEngineException {
+    public DeterministicGameTree(GameState initialState, GameEngine engine) {
+        this.root = new StateNode(initialState);
+        this.engine = engine;
+    }
+
+    public void executeTurnOnRoot(Turn turn) throws BoardGameEngineException {
         Optional<StateNode> selected = root.getChildren().stream().filter(node -> node.getState().getLatestTurn().equals(turn)).findFirst();
         if(selected.isPresent()) {
             root = selected.get();
@@ -26,38 +28,26 @@ public class DeterministicGameTree {
         }
     }
 
-    public void undoTurn() throws BoardGameEngineException {
+    public void undoTurnOnRoot() throws BoardGameEngineException {
         StateNode newRoot = new StateNode(new GameState(root.getState()));
         engine.undoTurn(newRoot.getState());
         newRoot.addChild(root);
         root = newRoot;
     }
 
-    public GameState getState() {
-        return root.getState();
+    public StateNode getRootNode() {
+        return root;
     }
 
-    public boolean inCheck() {
-        fillOutChildren(root);
-        Set<StateNode> nodes = root.getChildren();
-        for(StateNode node : nodes) {
-            if(canWin(node)) {
+    private boolean canWin(StateNode node) {
+        fillOutChildren(node);
+        for(StateNode n : node.getChildren()) {
+            if(n.getState().getStatus().isComplete()) {
                 return true;
             }
         }
 
         return false;
-    }
-
-    public boolean canWin() {
-        return canWin(root);
-    }
-
-    /*
-     * Functions used by AI exploring game tree
-     */
-    public StateNode getRootNode() {
-        return root;
     }
 
     public void fillOutChildren(StateNode node) {
@@ -69,13 +59,5 @@ public class DeterministicGameTree {
                     .forEach(state -> node.addChild(new StateNode(state)));
             node.setChildrenFull(true);
         }
-    }
-
-    /*
-     * Helper functions
-     */
-    //TODO: implement
-    private boolean canWin(StateNode node) {
-        return false;
     }
 }
