@@ -39,7 +39,7 @@ public class DeterministicGameTree {
         return root;
     }
 
-    private boolean canWin(StateNode node) {
+    private boolean canWin(StateNode node) throws BoardGameEngineException {
         fillOutChildren(node);
         for(StateNode n : node.getChildren()) {
             if(n.getState().getStatus().isComplete()) {
@@ -50,12 +50,18 @@ public class DeterministicGameTree {
         return false;
     }
 
-    public void fillOutChildren(StateNode node) {
+    public void fillOutChildren(StateNode node) throws BoardGameEngineException {
         if(!node.isChildrenFull()) {
             List<Turn> turns = engine.getPossibleTurns(node.getState());
 
 
-            turns.parallelStream().map(turn -> engine.executeTurn(new GameState(node.getState()), turn))
+            turns.parallelStream().map(turn -> {
+                try {
+                    return engine.executeTurn(new GameState(node.getState()), turn);
+                } catch(BoardGameEngineException e) {
+                    return null;
+                }
+            })
                     .forEach(state -> node.addChild(new StateNode(state)));
             node.setChildrenFull(true);
         }
