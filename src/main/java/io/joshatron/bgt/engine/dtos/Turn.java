@@ -1,4 +1,5 @@
 package io.joshatron.bgt.engine.dtos;
 
-public class Turn {
+public interface Turn {
+    Turn makeCopy();
 }

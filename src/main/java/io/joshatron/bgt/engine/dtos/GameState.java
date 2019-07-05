@@ -15,11 +15,20 @@ public class GameState {
         turns = new ArrayList<>();
     }
 
-    public GameState(GameState state) {
-
-    }
-
     public Turn getLatestTurn() {
         return turns.get(turns.size() - 1);
+    }
+
+    public GameState makeCopy() {
+        GameState state = new GameState();
+        state.setStatus(status.makeCopy());
+
+        List<Turn> turnsCopy = new ArrayList<>();
+        for(Turn turn : turns) {
+            turnsCopy.add(turn.makeCopy());
+        }
+        state.setTurns(turnsCopy);
+
+        return state;
     }
 }

@@ -29,7 +29,7 @@ public class DeterministicGameTree {
     }
 
     public void undoTurnOnRoot() throws BoardGameEngineException {
-        StateNode newRoot = new StateNode(new GameState(root.getState()));
+        StateNode newRoot = new StateNode(root.getState().makeCopy());
         engine.undoTurn(newRoot.getState());
         newRoot.addChild(root);
         root = newRoot;
@@ -57,7 +57,7 @@ public class DeterministicGameTree {
 
             turns.parallelStream().map(turn -> {
                 try {
-                    return engine.executeTurn(new GameState(node.getState()), turn);
+                    return engine.executeTurn(node.getState().makeCopy(), turn);
                 } catch(BoardGameEngineException e) {
                     return null;
                 }
