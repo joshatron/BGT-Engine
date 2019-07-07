@@ -1,4 +1,5 @@
 package io.joshatron.bgt.engine.board;
 
-public class BoardLocation {
+public interface BoardLocation {
+    BoardLocation makeCopy();
 }

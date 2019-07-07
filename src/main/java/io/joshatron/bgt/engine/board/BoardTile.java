@@ -1,4 +1,5 @@
 package io.joshatron.bgt.engine.board;
 
-public class BoardTile {
+public interface BoardTile {
+    BoardTile makeCopy();
 }
