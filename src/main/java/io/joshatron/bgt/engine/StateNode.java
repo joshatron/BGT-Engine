@@ -1,6 +1,6 @@
 package io.joshatron.bgt.engine;
 
-import io.joshatron.bgt.engine.dtos.GameState;
+import io.joshatron.bgt.engine.state.GameState;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
