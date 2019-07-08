@@ -23,6 +23,10 @@ public class GameState {
         this.currentPlayer = firstPlayer;
     }
 
+    public String getDisplayForCurrentPlayer() {
+        return "Display not implemented: " + this.toString();
+    }
+
     public Turn getLatestTurn() {
         return gameLog.get(gameLog.size() - 1).getTurn();
     }
