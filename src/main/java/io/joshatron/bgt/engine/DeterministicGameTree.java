@@ -28,13 +28,6 @@ public class DeterministicGameTree {
         }
     }
 
-    public void undoTurnOnRoot() throws BoardGameEngineException {
-        StateNode newRoot = new StateNode(root.getState().makeCopy());
-        engine.undoTurn(newRoot.getState());
-        newRoot.addChild(root);
-        root = newRoot;
-    }
-
     public StateNode getRootNode() {
         return root;
     }

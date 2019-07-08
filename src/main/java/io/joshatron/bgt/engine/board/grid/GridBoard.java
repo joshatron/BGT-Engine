@@ -5,7 +5,9 @@ import io.joshatron.bgt.engine.board.BoardTile;
 import io.joshatron.bgt.engine.board.GameBoard;
 import io.joshatron.bgt.engine.exception.BoardGameCommonErrorCode;
 import io.joshatron.bgt.engine.exception.BoardGameEngineException;
+import lombok.Data;
 
+@Data
 public class GridBoard implements GameBoard {
     private BoardTile[][] board;
     private int width; //x size

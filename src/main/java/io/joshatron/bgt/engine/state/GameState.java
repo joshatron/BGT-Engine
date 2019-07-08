@@ -7,27 +7,39 @@ import java.util.List;
 
 @Data
 public class GameState {
-    protected GameStatus status;
-    protected List<Turn> turns;
+    private GameStatus status;
+    private List<TurnLog> gameLog;
+    private List<PlayerInfo> players;
+    private int currentPlayer;
 
-    public GameState() {
-        status = new GameStatus();
-        turns = new ArrayList<>();
+    public GameState(GameStatus initialStatus, List<PlayerInfo> players) {
+        this(initialStatus, players, 0);
+    }
+
+    public GameState(GameStatus initialStatus, List<PlayerInfo> players, int firstPlayer) {
+        this.gameLog = new ArrayList<>();
+        this.status = initialStatus;
+        this.players = players;
+        this.currentPlayer = firstPlayer;
     }
 
     public Turn getLatestTurn() {
-        return turns.get(turns.size() - 1);
+        return gameLog.get(gameLog.size() - 1).getTurn();
     }
 
     public GameState makeCopy() {
-        GameState state = new GameState();
-        state.setStatus(status.makeCopy());
-
-        List<Turn> turnsCopy = new ArrayList<>();
-        for(Turn turn : turns) {
-            turnsCopy.add(turn.makeCopy());
+        List<TurnLog> logCopy = new ArrayList<>();
+        for(TurnLog turn : gameLog) {
+            logCopy.add(turn.makeCopy());
         }
-        state.setTurns(turnsCopy);
+
+        List<PlayerInfo> playerCopy = new ArrayList<>();
+        for(PlayerInfo info : players) {
+            playerCopy.add(info.makeCopy());
+        }
+
+        GameState state = new GameState(status.makeCopy(), playerCopy, currentPlayer);
+        state.setGameLog(logCopy);
 
         return state;
     }

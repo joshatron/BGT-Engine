@@ -10,5 +10,4 @@ public interface GameEngine {
     boolean isLegalTurn(GameState state, Turn turn);
     List<Turn> getPossibleTurns(GameState state) throws BoardGameEngineException;
     GameState executeTurn(GameState state, Turn turn) throws BoardGameEngineException;
-    GameState undoTurn(GameState state) throws BoardGameEngineException;
 }
