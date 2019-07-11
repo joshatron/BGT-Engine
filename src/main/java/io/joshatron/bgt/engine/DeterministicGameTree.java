@@ -50,7 +50,9 @@ public class DeterministicGameTree {
 
             turns.parallelStream().map(turn -> {
                 try {
-                    return engine.executeTurn(node.getState().makeCopy(), turn);
+                    GameState state = node.getState().makeCopy();
+                    engine.executeTurn(state, turn);
+                    return state;
                 } catch(BoardGameEngineException e) {
                     return null;
                 }
