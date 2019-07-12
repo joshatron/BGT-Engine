@@ -27,7 +27,7 @@ public class GameState {
         this.simultaneousQueue = new ArrayList<>();
     }
 
-    public String getDisplayForCurrentPlayer() {
+    public String getDisplayForPlayer(String player) {
         return "Display not implemented: " + this.toString();
     }
 
