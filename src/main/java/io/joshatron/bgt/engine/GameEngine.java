@@ -9,13 +9,15 @@ import java.util.List;
 
 public abstract class GameEngine {
     private TurnStyle turnStyle;
+    private boolean reverse;
 
     protected abstract boolean isTurnValid(GameState state, Turn turn);
-    protected abstract TurnResult updateState(GameState state, Turn turn);
+    protected abstract void updateState(GameState state, Turn turn);
     public abstract List<Turn> getPossibleTurns(GameState state) throws BoardGameEngineException;
 
     public GameEngine(TurnStyle style) {
         this.turnStyle = style;
+        this.reverse = false;
     }
 
     public boolean isLegalTurn(GameState state, Turn turn) {
@@ -27,11 +29,21 @@ public abstract class GameEngine {
 
     public void executeTurn(GameState state, Turn turn) throws BoardGameEngineException {
         if(isLegalTurn(state, turn)) {
-            updateCurrentTurn(state, turn);
-            TurnResult result = updateState(state, turn);
-            state.getGameLog().add(new TurnLog(turn, result));
-        }
-        else {
+            switch(turnStyle) {
+                case IN_ORDER:
+                case ANYONE:
+                case CUSTOM:
+                        updateState(state, turn);
+                        updateCurrentTurn(state, turn);
+                    break;
+                case SIMULTANEOUS:
+                    updateCurrentTurn(state, turn);
+                    if(state.getSimultaneousQueue().size() == state.getPlayers().size()) {
+                        updateState(state, turn);
+                    }
+                    state.setSimultaneousQueue(new ArrayList<>());
+            }
+        } else {
             throw new BoardGameEngineException(BoardGameCommonErrorCode.ILLEGAL_TURN);
         }
     }
@@ -39,15 +51,22 @@ public abstract class GameEngine {
     private void updateCurrentTurn(GameState state, Turn turn) {
         switch(turnStyle) {
             case IN_ORDER:
-                state.setCurrentPlayer((state.getCurrentPlayer() + 1) % state.getPlayers().size());
+                if(!reverse) {
+                    state.setCurrentPlayer((state.getCurrentPlayer() + 1) % state.getPlayers().size());
+                }
+                else {
+                    state.setCurrentPlayer((state.getCurrentPlayer() - 1));
+                    if(state.getCurrentPlayer() < 0) {
+                        state.setCurrentPlayer(state.getPlayers().size() - 1);
+                    }
+                }
                 break;
             case ANYONE:
-                return;
+                break;
             case SIMULTANEOUS:
-                if(state.getSimultaneousQueue().size() == state.getPlayers().size()) {
-                    state.setSimultaneousQueue(new ArrayList<>());
-                }
                 state.getSimultaneousQueue().add(turn);
+                break;
+            case CUSTOM:
                 break;
         }
     }
@@ -67,6 +86,22 @@ public abstract class GameEngine {
                 return true;
             default:
                 return false;
+        }
+    }
+
+    private void reverse() {
+        this.reverse = !this.reverse;
+    }
+
+    private void skip(GameState state) {
+        if(!reverse) {
+            state.setCurrentPlayer((state.getCurrentPlayer() + 1) % state.getPlayers().size());
+        }
+        else {
+            state.setCurrentPlayer((state.getCurrentPlayer() - 1));
+            if(state.getCurrentPlayer() < 0) {
+                state.setCurrentPlayer(state.getPlayers().size() - 1);
+            }
         }
     }
 }
