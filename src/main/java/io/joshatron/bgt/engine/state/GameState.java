@@ -1,9 +1,12 @@
 package io.joshatron.bgt.engine.state;
 
+import io.joshatron.bgt.engine.exception.BoardGameCommonErrorCode;
+import io.joshatron.bgt.engine.exception.BoardGameEngineException;
 import lombok.Data;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Data
 public class GameState {
@@ -29,6 +32,15 @@ public class GameState {
 
     public String getDisplayForPlayer(String player) {
         return "Display not implemented: " + this.toString();
+    }
+
+    public PlayerInfo getPlayerInfo(String player) throws BoardGameEngineException {
+        Optional<PlayerInfo> info = players.stream().filter(playerInfo -> playerInfo.getIdentifier().equals(player)).findFirst();
+        if(info.isPresent()) {
+            return info.get();
+        }
+
+        throw new BoardGameEngineException(BoardGameCommonErrorCode.INVALID_PLAYER);
     }
 
     public Turn getLatestTurn() {

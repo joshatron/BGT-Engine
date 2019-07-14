@@ -1,5 +1,6 @@
 package io.joshatron.bgt.engine.board.grid;
 
+import com.google.gson.Gson;
 import io.joshatron.bgt.engine.board.BoardLocation;
 import io.joshatron.bgt.engine.board.BoardTile;
 import io.joshatron.bgt.engine.board.GameBoard;
@@ -20,7 +21,8 @@ public class GridBoard implements GameBoard {
 
         for(int x = 0; x < width; x++) {
             for(int y = 0; y < height; y++) {
-                board[x][y] = template.makeCopy();
+                Gson gson = new Gson();
+                board[x][y] = gson.fromJson(gson.toJson(template), BoardTile.class);
             }
         }
     }
@@ -49,18 +51,5 @@ public class GridBoard implements GameBoard {
         GridBoardLocation loc = (GridBoardLocation)location;
 
         return loc.getX() >= 0 && loc.getY() >= 0 && loc.getX() < width && loc.getY() < height;
-    }
-
-    @Override
-    public GameBoard makeCopy() {
-        BoardTile[][] newBoard = new BoardTile[width][height];
-
-        for(int x = 0; x < width; x++) {
-            for(int y = 0; y < height; y++) {
-                newBoard[x][y] = board[x][y].makeCopy();
-            }
-        }
-
-        return new GridBoard(newBoard);
     }
 }

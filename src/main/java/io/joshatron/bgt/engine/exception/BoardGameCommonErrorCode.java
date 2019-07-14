@@ -5,6 +5,7 @@ public enum BoardGameCommonErrorCode implements BoardGameErrorCode {
     ILLEGAL_TURN,
     INVALID_BOARD_INITIALIZATION,
     INVALID_TYPE,
+    INVALID_PLAYER,
     GAME_FINISHED;
 
     @Override

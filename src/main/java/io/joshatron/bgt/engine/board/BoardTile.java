@@ -1,5 +1,6 @@
 package io.joshatron.bgt.engine.board;
 
-public interface BoardTile {
-    BoardTile makeCopy();
+import java.io.Serializable;
+
+public interface BoardTile extends Serializable {
 }
