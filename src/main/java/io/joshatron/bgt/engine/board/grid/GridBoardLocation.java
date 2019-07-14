@@ -48,4 +48,9 @@ public class GridBoardLocation implements BoardLocation {
         x += dx;
         y += dy;
     }
+
+    @Override
+    public String toString() {
+        return "(" + x + ", " + y + ")";
+    }
 }

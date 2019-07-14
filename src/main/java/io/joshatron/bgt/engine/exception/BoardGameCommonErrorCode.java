@@ -6,6 +6,7 @@ public enum BoardGameCommonErrorCode implements BoardGameErrorCode {
     INVALID_BOARD_INITIALIZATION,
     INVALID_TYPE,
     INVALID_PLAYER,
+    NOT_ENOUGH_PIECES,
     GAME_FINISHED;
 
     @Override

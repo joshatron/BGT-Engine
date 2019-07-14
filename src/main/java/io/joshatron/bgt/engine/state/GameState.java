@@ -2,6 +2,7 @@ package io.joshatron.bgt.engine.state;
 
 import io.joshatron.bgt.engine.exception.BoardGameCommonErrorCode;
 import io.joshatron.bgt.engine.exception.BoardGameEngineException;
+import io.joshatron.bgt.engine.player.PlayerInfo;
 import lombok.Data;
 
 import java.io.Serializable;

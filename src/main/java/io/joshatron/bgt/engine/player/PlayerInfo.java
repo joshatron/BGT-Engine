@@ -1,4 +1,4 @@
-package io.joshatron.bgt.engine.state;
+package io.joshatron.bgt.engine.player;
 
 import lombok.Data;
 

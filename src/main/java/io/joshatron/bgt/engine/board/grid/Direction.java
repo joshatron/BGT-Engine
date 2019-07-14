@@ -8,5 +8,22 @@ public enum Direction {
     NORTHWEST,
     NORTHEAST,
     SOUTHWEST,
-    SOUTHEAST
+    SOUTHEAST;
+
+    private Direction opposite;
+
+    static {
+        NORTH.opposite = SOUTH;
+        SOUTH.opposite = NORTH;
+        EAST.opposite = WEST;
+        WEST.opposite = EAST;
+        NORTHWEST.opposite = SOUTHEAST;
+        NORTHEAST.opposite = SOUTHWEST;
+        SOUTHWEST.opposite = NORTHEAST;
+        SOUTHEAST.opposite = NORTHWEST;
+    }
+
+    public Direction opposite() {
+        return opposite;
+    }
 }
