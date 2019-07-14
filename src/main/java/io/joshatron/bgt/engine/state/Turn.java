@@ -13,8 +13,4 @@ public class Turn {
     public Turn createFromString(String turn) {
         return new Turn(turn);
     }
-
-    public Turn makeCopy() {
-        return new Turn(player);
-    }
 }

@@ -11,11 +11,4 @@ public class PlayerInfo {
         this.identifier = identifier;
         eliminated = false;
     }
-
-    public PlayerInfo makeCopy() {
-        PlayerInfo info = new PlayerInfo(identifier);
-        info.setEliminated(eliminated);
-
-        return info;
-    }
 }

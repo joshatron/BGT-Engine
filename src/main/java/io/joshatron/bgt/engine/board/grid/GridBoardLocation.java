@@ -48,9 +48,4 @@ public class GridBoardLocation implements BoardLocation {
         x += dx;
         y += dy;
     }
-
-    @Override
-    public BoardLocation makeCopy() {
-        return new GridBoardLocation(x, y);
-    }
 }

@@ -17,11 +17,4 @@ public class GameStatus {
     public boolean isComplete() {
         return status == Status.COMPLETE;
     }
-
-    public GameStatus makeCopy() {
-        GameStatus gameStatus = new GameStatus();
-        gameStatus.setStatus(status);
-
-        return gameStatus;
-    }
 }

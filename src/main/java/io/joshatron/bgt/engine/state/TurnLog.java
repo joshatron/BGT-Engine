@@ -8,8 +8,4 @@ import lombok.Data;
 public class TurnLog {
     private Turn turn;
     private TurnResult turnResult;
-
-    public TurnLog makeCopy() {
-        return new TurnLog(turn.makeCopy(), turnResult.makeCopy());
-    }
 }
