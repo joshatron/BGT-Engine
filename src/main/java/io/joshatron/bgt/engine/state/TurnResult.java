@@ -1,4 +1,6 @@
 package io.joshatron.bgt.engine.state;
 
-public interface TurnResult {
+import java.io.Serializable;
+
+public interface TurnResult extends Serializable {
 }

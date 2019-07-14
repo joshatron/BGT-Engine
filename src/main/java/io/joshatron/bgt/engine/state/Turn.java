@@ -2,8 +2,10 @@ package io.joshatron.bgt.engine.state;
 
 import lombok.Data;
 
+import java.io.Serializable;
+
 @Data
-public class Turn {
+public class Turn implements Serializable {
     private String player;
 
     public Turn(String player) {

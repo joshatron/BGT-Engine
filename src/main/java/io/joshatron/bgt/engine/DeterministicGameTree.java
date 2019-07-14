@@ -3,6 +3,7 @@ package io.joshatron.bgt.engine;
 import io.joshatron.bgt.engine.state.GameState;
 import io.joshatron.bgt.engine.state.Turn;
 import io.joshatron.bgt.engine.exception.BoardGameEngineException;
+import org.apache.commons.lang.SerializationUtils;
 
 import java.util.*;
 
@@ -50,7 +51,7 @@ public class DeterministicGameTree {
 
             turns.parallelStream().map(turn -> {
                 try {
-                    GameState state = node.getState().makeCopy();
+                    GameState state = (GameState) SerializationUtils.clone(node.getState());
                     engine.executeTurn(state, turn);
                     return state;
                 } catch(BoardGameEngineException e) {

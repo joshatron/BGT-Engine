@@ -2,8 +2,10 @@ package io.joshatron.bgt.engine.state;
 
 import lombok.Data;
 
+import java.io.Serializable;
+
 @Data
-public class PlayerInfo {
+public class PlayerInfo implements Serializable {
     private String identifier;
     private boolean eliminated;
 

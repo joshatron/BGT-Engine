@@ -1,4 +1,6 @@
 package io.joshatron.bgt.engine.board;
 
-public interface BoardLocation {
+import java.io.Serializable;
+
+public interface BoardLocation extends Serializable {
 }

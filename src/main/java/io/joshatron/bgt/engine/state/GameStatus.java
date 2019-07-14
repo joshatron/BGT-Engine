@@ -2,8 +2,10 @@ package io.joshatron.bgt.engine.state;
 
 import lombok.Data;
 
+import java.io.Serializable;
+
 @Data
-public class GameStatus {
+public class GameStatus implements Serializable {
     protected Status status;
 
     public GameStatus() {

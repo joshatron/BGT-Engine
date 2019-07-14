@@ -4,12 +4,13 @@ import io.joshatron.bgt.engine.exception.BoardGameCommonErrorCode;
 import io.joshatron.bgt.engine.exception.BoardGameEngineException;
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Data
-public class GameState {
+public class GameState implements Serializable {
     private GameStatus status;
     private List<TurnLog> gameLog;
     private List<PlayerInfo> players;

@@ -1,12 +1,12 @@
 package io.joshatron.bgt.engine.board.grid;
 
-import com.google.gson.Gson;
 import io.joshatron.bgt.engine.board.BoardLocation;
 import io.joshatron.bgt.engine.board.BoardTile;
 import io.joshatron.bgt.engine.board.GameBoard;
 import io.joshatron.bgt.engine.exception.BoardGameCommonErrorCode;
 import io.joshatron.bgt.engine.exception.BoardGameEngineException;
 import lombok.Data;
+import org.apache.commons.lang.SerializationUtils;
 
 @Data
 public class GridBoard implements GameBoard {
@@ -21,8 +21,7 @@ public class GridBoard implements GameBoard {
 
         for(int x = 0; x < width; x++) {
             for(int y = 0; y < height; y++) {
-                Gson gson = new Gson();
-                board[x][y] = gson.fromJson(gson.toJson(template), BoardTile.class);
+                board[x][y] = (BoardTile) SerializationUtils.clone(template);
             }
         }
     }
