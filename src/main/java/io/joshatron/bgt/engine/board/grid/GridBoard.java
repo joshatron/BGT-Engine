@@ -32,6 +32,10 @@ public class GridBoard implements GameBoard {
         height = board[0].length;
     }
 
+    public BoardTile getTile(int x, int y) throws BoardGameEngineException {
+        return getTile(new GridBoardLocation(x, y));
+    }
+
     @Override
     public BoardTile getTile(BoardLocation location) throws BoardGameEngineException {
         if(!onBoard(location)) {
@@ -40,6 +44,10 @@ public class GridBoard implements GameBoard {
         GridBoardLocation loc = (GridBoardLocation)location;
 
         return board[loc.getX()][loc.getY()];
+    }
+
+    public boolean onBoard(int x, int y) {
+        return onBoard(new GridBoardLocation(x, y));
     }
 
     @Override

@@ -5,25 +5,39 @@ public enum Direction {
     SOUTH,
     EAST,
     WEST,
-    NORTHWEST,
     NORTHEAST,
-    SOUTHWEST,
-    SOUTHEAST;
+    NORTHWEST,
+    SOUTHEAST,
+    SOUTHWEST;
 
     private Direction opposite;
+    private boolean diagonal;
 
     static {
         NORTH.opposite = SOUTH;
         SOUTH.opposite = NORTH;
         EAST.opposite = WEST;
         WEST.opposite = EAST;
-        NORTHWEST.opposite = SOUTHEAST;
         NORTHEAST.opposite = SOUTHWEST;
-        SOUTHWEST.opposite = NORTHEAST;
+        NORTHWEST.opposite = SOUTHEAST;
         SOUTHEAST.opposite = NORTHWEST;
+        SOUTHWEST.opposite = NORTHEAST;
+
+        NORTH.diagonal = false;
+        SOUTH.diagonal = false;
+        EAST.diagonal = false;
+        WEST.diagonal = false;
+        NORTHEAST.diagonal = true;
+        NORTHWEST.diagonal = true;
+        SOUTHEAST.diagonal = true;
+        SOUTHWEST.diagonal = true;
     }
 
     public Direction opposite() {
         return opposite;
+    }
+
+    public boolean isDiagonal() {
+        return diagonal;
     }
 }

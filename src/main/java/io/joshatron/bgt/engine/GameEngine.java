@@ -9,7 +9,6 @@ import java.util.List;
 
 public abstract class GameEngine {
     private TurnStyle turnStyle;
-    private boolean reverse;
 
     protected abstract boolean isTurnValid(GameState state, Turn turn);
     protected abstract void updateState(GameState state, Turn turn);
@@ -17,7 +16,6 @@ public abstract class GameEngine {
 
     public GameEngine(TurnStyle style) {
         this.turnStyle = style;
-        this.reverse = false;
     }
 
     public boolean isLegalTurn(GameState state, Turn turn) {
@@ -51,15 +49,16 @@ public abstract class GameEngine {
     private void updateCurrentTurn(GameState state, Turn turn) {
         switch(turnStyle) {
             case IN_ORDER:
-                if(!reverse) {
-                    state.setCurrentPlayer((state.getCurrentPlayer() + 1) % state.getPlayers().size());
+                if(!state.isReverse()) {
+                    state.setCurrentPlayer((state.getCurrentPlayer() + (1 + state.getSkip())) % state.getPlayers().size());
                 }
                 else {
-                    state.setCurrentPlayer((state.getCurrentPlayer() - 1));
-                    if(state.getCurrentPlayer() < 0) {
-                        state.setCurrentPlayer(state.getPlayers().size() - 1);
+                    state.setCurrentPlayer((state.getCurrentPlayer() - (1 + state.getSkip())));
+                    while(state.getCurrentPlayer() < 0) {
+                        state.setCurrentPlayer(state.getCurrentPlayer() + state.getPlayers().size());
                     }
                 }
+                state.resetSkip();
                 break;
             case ANYONE:
                 break;
@@ -86,22 +85,6 @@ public abstract class GameEngine {
                 return true;
             default:
                 return false;
-        }
-    }
-
-    private void reverse() {
-        this.reverse = !this.reverse;
-    }
-
-    private void skip(GameState state) {
-        if(!reverse) {
-            state.setCurrentPlayer((state.getCurrentPlayer() + 1) % state.getPlayers().size());
-        }
-        else {
-            state.setCurrentPlayer((state.getCurrentPlayer() - 1));
-            if(state.getCurrentPlayer() < 0) {
-                state.setCurrentPlayer(state.getPlayers().size() - 1);
-            }
         }
     }
 }
