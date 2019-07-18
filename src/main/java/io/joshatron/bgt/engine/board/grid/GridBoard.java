@@ -9,12 +9,13 @@ import lombok.Data;
 import org.apache.commons.lang.SerializationUtils;
 
 @Data
-public class GridBoard implements GameBoard {
+public class GridBoard extends GameBoard {
     private BoardTile[][] board;
     private int width; //x size
     private int height; //y size
 
     public GridBoard(int width, int height, BoardTile template) {
+        super();
         this.width = width;
         this.height = height;
         board = new BoardTile[width][height];
@@ -22,6 +23,8 @@ public class GridBoard implements GameBoard {
         for(int x = 0; x < width; x++) {
             for(int y = 0; y < height; y++) {
                 board[x][y] = (BoardTile) SerializationUtils.clone(template);
+                board[x][y].setLocation(new GridBoardLocation(x, y));
+                getAllTiles().add(board[x][y]);
             }
         }
     }
