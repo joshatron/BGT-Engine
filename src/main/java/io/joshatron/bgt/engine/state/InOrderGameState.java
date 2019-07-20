@@ -2,6 +2,7 @@ package io.joshatron.bgt.engine.state;
 
 import io.joshatron.bgt.engine.exception.BoardGameCommonErrorCode;
 import io.joshatron.bgt.engine.exception.BoardGameEngineException;
+import io.joshatron.bgt.engine.player.PlayerIndicator;
 import io.joshatron.bgt.engine.player.PlayerInfo;
 import lombok.Data;
 
@@ -25,7 +26,7 @@ public class InOrderGameState extends GameState {
         this.reverse = false;
     }
 
-    public String getDisplayForPlayer(String player) {
+    public String getDisplayForPlayer(PlayerIndicator player) {
         return "Display not implemented: " + this.toString();
     }
 

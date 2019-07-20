@@ -62,4 +62,56 @@ public class GridBoard extends GameBoard {
 
         return loc.getX() >= 0 && loc.getY() >= 0 && loc.getX() < width && loc.getY() < height;
     }
+
+    @Override
+    public String toString() {
+        String[][] tiles = new String[width][height];
+        int max = 0;
+
+        for(int x = 0; x < width; x++) {
+            for(int y = 0; y < height; y++) {
+                tiles[x][y] = board[x][y].toString();
+                if(tiles[x][y].length() > max) {
+                    max = tiles[x][y].length();
+                }
+            }
+        }
+
+        int rowLength = (3 + max) * width + 1;
+        StringBuilder toReturn = new StringBuilder();
+        toReturn.append(toStringRow(rowLength));
+
+        for(int y = 0; y < height; y++) {
+            toReturn.append('|');
+            for(int x = 0; x < width; x++) {
+                toReturn.append(' ');
+                toReturn.append(tiles[x][y]);
+                toReturn.append(toStringExtraSpaces(tiles[x][y], max));
+                toReturn.append(" |");
+            }
+            toReturn.append('\n');
+            toReturn.append(toStringRow(rowLength));
+        }
+
+        return toReturn.toString();
+    }
+
+    private String toStringRow(int length) {
+        StringBuilder toReturn = new StringBuilder();
+        for(int i = 0; i < length; i++) {
+            toReturn.append('-');
+        }
+        toReturn.append('\n');
+
+        return toReturn.toString();
+    }
+
+    private String toStringExtraSpaces(String tile, int max) {
+        StringBuilder toReturn = new StringBuilder();
+        for(int i = tile.length(); i < max; i++) {
+            toReturn.append(' ');
+        }
+
+        return toReturn.toString();
+    }
 }

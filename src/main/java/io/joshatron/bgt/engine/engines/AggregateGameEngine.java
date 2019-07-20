@@ -15,6 +15,11 @@ public class AggregateGameEngine implements GameEngine {
         this.currentEngine = manager.getInitialEngine();
     }
 
+    public AggregateGameEngine(AggregateGameEngineManager manager, GameState state) {
+        this.manager = manager;
+        this.currentEngine = manager.updateEngine(state, null);
+    }
+
     @Override
     public boolean isLegalTurn(GameState state, Turn turn) {
         return currentEngine.isLegalTurn(state, turn);
@@ -29,5 +34,9 @@ public class AggregateGameEngine implements GameEngine {
     @Override
     public List<Turn> getPossibleTurns(GameState state) throws BoardGameEngineException {
         return currentEngine.getPossibleTurns(state);
+    }
+
+    public void updateEngine(GameState state) {
+        currentEngine = manager.updateEngine(state, currentEngine);
     }
 }
