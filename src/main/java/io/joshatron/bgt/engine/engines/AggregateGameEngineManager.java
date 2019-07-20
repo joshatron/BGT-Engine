@@ -1,4 +1,4 @@
-package io.joshatron.bgt.engine;
+package io.joshatron.bgt.engine.engines;
 
 import io.joshatron.bgt.engine.state.GameState;
 
