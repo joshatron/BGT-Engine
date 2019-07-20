@@ -2,6 +2,7 @@ package io.joshatron.bgt.engine.state;
 
 import io.joshatron.bgt.engine.exception.BoardGameCommonErrorCode;
 import io.joshatron.bgt.engine.exception.BoardGameEngineException;
+import io.joshatron.bgt.engine.player.PlayerIndicator;
 import io.joshatron.bgt.engine.player.PlayerInfo;
 import lombok.Data;
 
@@ -26,12 +27,12 @@ public class GameState implements Serializable {
         this.players = players;
     }
 
-    public String getDisplayForPlayer(String player) {
+    public String getDisplayForPlayer(PlayerIndicator player) {
         return "Display not implemented: " + this.toString();
     }
 
-    public PlayerInfo getPlayerInfo(String player) throws BoardGameEngineException {
-        Optional<PlayerInfo> info = players.stream().filter(playerInfo -> playerInfo.getIdentifier().equals(player)).findFirst();
+    public PlayerInfo getPlayerInfo(PlayerIndicator player) throws BoardGameEngineException {
+        Optional<PlayerInfo> info = players.stream().filter(playerInfo -> playerInfo.getIdentifier() == player).findFirst();
         if(info.isPresent()) {
             return info.get();
         }

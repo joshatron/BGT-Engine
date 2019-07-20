@@ -6,10 +6,10 @@ import java.io.Serializable;
 
 @Data
 public class PlayerInfo implements Serializable {
-    private String identifier;
+    private PlayerIndicator identifier;
     private boolean eliminated;
 
-    public PlayerInfo(String identifier) {
+    public PlayerInfo(PlayerIndicator identifier) {
         this.identifier = identifier;
         eliminated = false;
     }
