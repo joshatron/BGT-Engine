@@ -4,8 +4,9 @@ import io.joshatron.bgt.engine.exception.BoardGameCommonErrorCode;
 import io.joshatron.bgt.engine.exception.BoardGameEngineException;
 import io.joshatron.bgt.engine.player.PlayerIndicator;
 import io.joshatron.bgt.engine.player.PlayerInfo;
-import io.joshatron.bgt.engine.turn.Turn;
-import io.joshatron.bgt.engine.turn.TurnLog;
+import io.joshatron.bgt.engine.turn.Action;
+import io.joshatron.bgt.engine.turn.ActionPair;
+import io.joshatron.bgt.engine.turn.ActionResult;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -16,7 +17,7 @@ import java.util.Optional;
 @Data
 public class GameState implements Serializable {
     private GameStatus status;
-    private List<TurnLog> gameLog;
+    private List<ActionPair> gameLog;
     private List<PlayerInfo> players;
 
     public GameState(GameStatus initialStatus) {
@@ -42,7 +43,11 @@ public class GameState implements Serializable {
         throw new BoardGameEngineException(BoardGameCommonErrorCode.INVALID_PLAYER);
     }
 
-    public Turn getLatestTurn() {
-        return gameLog.get(gameLog.size() - 1).getTurn();
+    public void addToLog(Action action, ActionResult actionResult) {
+        gameLog.add(new ActionPair(action, actionResult));
+    }
+
+    public ActionPair getLatestAction() {
+        return gameLog.get(gameLog.size() - 1);
     }
 }

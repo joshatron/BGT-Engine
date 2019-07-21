@@ -1,7 +1,6 @@
 package io.joshatron.bgt.engine.engines;
 
 import io.joshatron.bgt.engine.exception.BoardGameEngineException;
-import io.joshatron.bgt.engine.player.PlayerIndicator;
 import io.joshatron.bgt.engine.state.GameState;
 import io.joshatron.bgt.engine.turn.Action;
 
@@ -21,7 +20,7 @@ public abstract class AggregateGameEngine implements GameEngine {
     }
 
     @Override
-    public List<Action> getPossibleActions(GameState state, PlayerIndicator player) throws BoardGameEngineException {
-        return getEngineForState(state).getPossibleActions(state, player);
+    public List<Action> getPossibleActions(GameState state) throws BoardGameEngineException {
+        return getEngineForState(state).getPossibleActions(state);
     }
 }

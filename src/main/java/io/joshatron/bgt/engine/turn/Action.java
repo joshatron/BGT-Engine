@@ -1,9 +1,17 @@
 package io.joshatron.bgt.engine.turn;
 
+import io.joshatron.bgt.engine.player.PlayerIndicator;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
 import java.io.Serializable;
 
+@Data
+@AllArgsConstructor
 public class Action implements Serializable {
+    private PlayerIndicator player;
+
     public static Action createFromString(String action) {
-        return new Action();
+        return new Action(PlayerIndicator.valueOf(action));
     }
 }

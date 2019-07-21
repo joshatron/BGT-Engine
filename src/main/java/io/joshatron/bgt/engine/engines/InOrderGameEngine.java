@@ -5,11 +5,12 @@ import io.joshatron.bgt.engine.exception.BoardGameEngineException;
 import io.joshatron.bgt.engine.state.GameState;
 import io.joshatron.bgt.engine.state.InOrderGameState;
 import io.joshatron.bgt.engine.turn.Action;
-import io.joshatron.bgt.engine.turn.Turn;
+import io.joshatron.bgt.engine.turn.ActionResult;
 
 public abstract class InOrderGameEngine implements GameEngine {
-    protected abstract boolean isActionValid(GameState state, Action action);
-    protected abstract void updateState(GameState state, Action action);
+    protected abstract boolean isActionValid(InOrderGameState state, Action action);
+    protected abstract ActionResult updateState(InOrderGameState state, Action action);
+    protected abstract boolean isTurnDone(InOrderGameState state);
 
     @Override
     public boolean isLegalAction(GameState state, Action action) {
@@ -21,18 +22,21 @@ public abstract class InOrderGameEngine implements GameEngine {
             return false;
         }
 
-        return isActionValid(state, action);
+        return isActionValid((InOrderGameState) state, action);
     }
 
     private boolean isPlayersTurn(InOrderGameState state, Action action) {
-        return state.getPlayers().get(state.getCurrentPlayer()).getIdentifier().equals(turn.getPlayer());
+        return state.getPlayers().get(state.getCurrentPlayer()).getIdentifier() == action.getPlayer();
     }
 
     @Override
-    public void executeTurn(GameState state, Turn turn) throws BoardGameEngineException {
-        if(isLegalTurn(state, turn)) {
-            updateState(state, turn);
-            updateCurrentTurn((InOrderGameState) state);
+    public void submitAction(GameState state, Action action) throws BoardGameEngineException {
+        if(isLegalAction(state, action)) {
+            ActionResult result = updateState((InOrderGameState) state, action);
+            state.addToLog(action, result);
+            if(isTurnDone((InOrderGameState) state)) {
+                updateCurrentTurn((InOrderGameState) state);
+            }
         } else {
             throw new BoardGameEngineException(BoardGameCommonErrorCode.ILLEGAL_TURN);
         }

@@ -2,8 +2,8 @@ package io.joshatron.bgt.engine;
 
 import io.joshatron.bgt.engine.engines.GameEngine;
 import io.joshatron.bgt.engine.state.GameState;
-import io.joshatron.bgt.engine.turn.Turn;
 import io.joshatron.bgt.engine.exception.BoardGameEngineException;
+import io.joshatron.bgt.engine.turn.Action;
 import org.apache.commons.lang.SerializationUtils;
 
 import java.util.*;
@@ -18,15 +18,15 @@ public class DeterministicGameTree {
         this.engine = engine;
     }
 
-    public void executeTurnOnRoot(Turn turn) throws BoardGameEngineException {
-        Optional<StateNode> selected = root.getChildren().stream().filter(node -> node.getState().getLatestTurn().equals(turn)).findFirst();
+    public void executeActionOnRoot(Action action) throws BoardGameEngineException {
+        Optional<StateNode> selected = root.getChildren().stream().filter(node -> node.getState().getLatestAction().equals(action)).findFirst();
         if(selected.isPresent()) {
             root = selected.get();
             root.setParent(null);
         }
         else {
             root = new StateNode(root.getState());
-            engine.executeTurn(root.getState(), turn);
+            engine.submitAction(root.getState(), action);
         }
     }
 
@@ -47,13 +47,13 @@ public class DeterministicGameTree {
 
     public void fillOutChildren(StateNode node) throws BoardGameEngineException {
         if(!node.isChildrenFull()) {
-            List<Turn> turns = engine.getPossibleTurns(node.getState());
+            List<Action> actions = engine.getPossibleActions(node.getState());
 
 
-            turns.parallelStream().map(turn -> {
+            actions.parallelStream().map(action -> {
                 try {
                     GameState state = (GameState) SerializationUtils.clone(node.getState());
-                    engine.executeTurn(state, turn);
+                    engine.submitAction(state, action);
                     return state;
                 } catch(BoardGameEngineException e) {
                     return null;
