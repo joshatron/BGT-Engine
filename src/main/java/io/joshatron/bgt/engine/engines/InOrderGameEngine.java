@@ -4,26 +4,27 @@ import io.joshatron.bgt.engine.exception.BoardGameCommonErrorCode;
 import io.joshatron.bgt.engine.exception.BoardGameEngineException;
 import io.joshatron.bgt.engine.state.GameState;
 import io.joshatron.bgt.engine.state.InOrderGameState;
-import io.joshatron.bgt.engine.state.Turn;
+import io.joshatron.bgt.engine.turn.Action;
+import io.joshatron.bgt.engine.turn.Turn;
 
 public abstract class InOrderGameEngine implements GameEngine {
-    protected abstract boolean isTurnValid(GameState state, Turn turn);
-    protected abstract void updateState(GameState state, Turn turn);
+    protected abstract boolean isActionValid(GameState state, Action action);
+    protected abstract void updateState(GameState state, Action action);
 
     @Override
-    public boolean isLegalTurn(GameState state, Turn turn) {
+    public boolean isLegalAction(GameState state, Action action) {
         if(!(state instanceof InOrderGameState)) {
             return false;
         }
 
-        if(!isPlayersTurn((InOrderGameState) state, turn)) {
+        if(!isPlayersTurn((InOrderGameState) state, action)) {
             return false;
         }
 
-        return isTurnValid(state, turn);
+        return isActionValid(state, action);
     }
 
-    private boolean isPlayersTurn(InOrderGameState state, Turn turn) {
+    private boolean isPlayersTurn(InOrderGameState state, Action action) {
         return state.getPlayers().get(state.getCurrentPlayer()).getIdentifier().equals(turn.getPlayer());
     }
 
