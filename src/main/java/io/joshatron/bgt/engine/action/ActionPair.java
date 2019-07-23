@@ -1,4 +1,4 @@
-package io.joshatron.bgt.engine.turn;
+package io.joshatron.bgt.engine.action;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

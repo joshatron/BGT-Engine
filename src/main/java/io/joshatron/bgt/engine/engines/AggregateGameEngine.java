@@ -2,7 +2,7 @@ package io.joshatron.bgt.engine.engines;
 
 import io.joshatron.bgt.engine.exception.BoardGameEngineException;
 import io.joshatron.bgt.engine.state.GameState;
-import io.joshatron.bgt.engine.turn.Action;
+import io.joshatron.bgt.engine.action.Action;
 
 import java.util.List;
 

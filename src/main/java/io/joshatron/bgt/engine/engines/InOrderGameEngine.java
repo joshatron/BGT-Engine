@@ -4,8 +4,8 @@ import io.joshatron.bgt.engine.exception.BoardGameCommonErrorCode;
 import io.joshatron.bgt.engine.exception.BoardGameEngineException;
 import io.joshatron.bgt.engine.state.GameState;
 import io.joshatron.bgt.engine.state.InOrderGameState;
-import io.joshatron.bgt.engine.turn.Action;
-import io.joshatron.bgt.engine.turn.ActionResult;
+import io.joshatron.bgt.engine.action.Action;
+import io.joshatron.bgt.engine.action.ActionResult;
 
 public abstract class InOrderGameEngine implements GameEngine {
     protected abstract boolean isActionValid(InOrderGameState state, Action action);

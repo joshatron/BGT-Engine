@@ -1,4 +1,4 @@
-package io.joshatron.bgt.engine.turn;
+package io.joshatron.bgt.engine.action;
 
 import io.joshatron.bgt.engine.player.PlayerIndicator;
 import lombok.AllArgsConstructor;

@@ -4,9 +4,9 @@ import io.joshatron.bgt.engine.exception.BoardGameCommonErrorCode;
 import io.joshatron.bgt.engine.exception.BoardGameEngineException;
 import io.joshatron.bgt.engine.player.PlayerIndicator;
 import io.joshatron.bgt.engine.player.PlayerInfo;
-import io.joshatron.bgt.engine.turn.Action;
-import io.joshatron.bgt.engine.turn.ActionPair;
-import io.joshatron.bgt.engine.turn.ActionResult;
+import io.joshatron.bgt.engine.action.Action;
+import io.joshatron.bgt.engine.action.ActionPair;
+import io.joshatron.bgt.engine.action.ActionResult;
 import lombok.Data;
 
 import java.io.Serializable;

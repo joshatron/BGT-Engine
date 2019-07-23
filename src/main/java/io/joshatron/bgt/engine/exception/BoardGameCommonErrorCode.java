@@ -9,6 +9,7 @@ public enum BoardGameCommonErrorCode implements BoardGameErrorCode {
     NOT_ENOUGH_PIECES,
     INVALID_DIRECTION,
     IN_ORDER_QUESTION_ONLY,
+    TOO_MANY_PIECES_TO_REMOVE,
     GAME_FINISHED;
 
     @Override

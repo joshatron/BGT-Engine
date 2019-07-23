@@ -1,9 +1,7 @@
 package io.joshatron.bgt.engine.board;
 
 import io.joshatron.bgt.engine.exception.BoardGameEngineException;
-import lombok.AccessLevel;
 import lombok.Data;
-import lombok.Setter;
 
 import java.io.Serializable;
 import java.util.ArrayList;
