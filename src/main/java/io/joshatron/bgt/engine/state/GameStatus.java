@@ -6,7 +6,7 @@ import java.io.Serializable;
 
 @Data
 public class GameStatus implements Serializable {
-    protected Status status;
+    private Status status;
 
     public GameStatus() {
         status = Status.INCOMPLETE;

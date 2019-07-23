@@ -10,31 +10,31 @@ import java.util.List;
 
 @Getter
 @EqualsAndHashCode
-public class PieceStack extends BoardTile {
+public class PieceStack<T extends BoardLocation,P extends Piece> extends BoardTile<T> {
 
     //from bottom to top
-    private ArrayList<Piece> pieces;
+    private ArrayList<P> pieces;
 
-    public PieceStack(BoardLocation location) {
+    public PieceStack(T location) {
         super(location);
         pieces = new ArrayList<>();
     }
 
-    public void addPieces(List<Piece> pieces) {
+    public void addPieces(List<P> pieces) {
         this.pieces.addAll(pieces);
     }
 
-    public void addPiece(Piece piece) {
+    public void addPiece(P piece) {
         pieces.add(piece);
     }
 
-    public List<Piece> removePieces(int toRemove) throws BoardGameEngineException {
+    public List<P> removePieces(int toRemove) throws BoardGameEngineException {
         if(toRemove > pieces.size()) {
             throw new BoardGameEngineException(BoardGameCommonErrorCode.TOO_MANY_PIECES_TO_REMOVE);
         }
 
         int pieceLoc = pieces.size() - toRemove;
-        ArrayList<Piece> removed = new ArrayList<>();
+        List<P> removed = new ArrayList<>();
         for(int i = 0; i < toRemove; i++) {
             removed.add(pieces.remove(pieceLoc));
         }
@@ -42,19 +42,19 @@ public class PieceStack extends BoardTile {
         return removed;
     }
 
-    public Piece getTopPiece() {
+    public P getTopPiece() {
         if(pieces.isEmpty()) {
             return null;
         }
         return pieces.get(pieces.size() - 1);
     }
 
-    public List<Piece> getTopPieces(int num) throws BoardGameEngineException {
+    public List<P> getTopPieces(int num) throws BoardGameEngineException {
         if(num > pieces.size()) {
             throw new BoardGameEngineException(BoardGameCommonErrorCode.TOO_MANY_PIECES_TO_REMOVE);
         }
 
-        ArrayList<Piece> top = new ArrayList<>();
+        List<P> top = new ArrayList<>();
         for(int i = 0; i < num; i++) {
             top.add(pieces.get(pieces.size() - num + i));
         }

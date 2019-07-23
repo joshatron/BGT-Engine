@@ -8,13 +8,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Data
-public abstract class GameBoard implements Serializable {
-    private List<BoardTile> allTiles;
+public abstract class GameBoard<T extends BoardTile,L extends BoardLocation> implements Serializable {
+    private List<T> allTiles;
 
     public GameBoard() {
         allTiles = new ArrayList<>();
     }
 
-    public abstract BoardTile getTile(BoardLocation location) throws BoardGameEngineException;
-    public abstract boolean onBoard(BoardLocation location);
+    public abstract T getTile(L location) throws BoardGameEngineException;
+    public abstract boolean onBoard(L location);
 }

@@ -15,16 +15,16 @@ import java.util.List;
 import java.util.Optional;
 
 @Data
-public class GameState implements Serializable {
-    private GameStatus status;
+public class GameState<S extends GameStatus, P extends PlayerInfo> implements Serializable {
+    private S status;
     private List<ActionPair> gameLog;
-    private List<PlayerInfo> players;
+    private List<P> players;
 
-    public GameState(GameStatus initialStatus) {
+    public GameState(S initialStatus) {
         this(initialStatus, new ArrayList<>());
     }
 
-    public GameState(GameStatus initialStatus, List<PlayerInfo> players) {
+    public GameState(S initialStatus, List<P> players) {
         this.gameLog = new ArrayList<>();
         this.status = initialStatus;
         this.players = players;
@@ -34,8 +34,8 @@ public class GameState implements Serializable {
         return "Display not implemented: " + this.toString();
     }
 
-    public PlayerInfo getPlayerInfo(PlayerIndicator player) throws BoardGameEngineException {
-        Optional<PlayerInfo> info = players.stream().filter(playerInfo -> playerInfo.getIdentifier() == player).findFirst();
+    public P getPlayerInfo(PlayerIndicator player) throws BoardGameEngineException {
+        Optional<P> info = players.stream().filter(playerInfo -> playerInfo.getIdentifier() == player).findFirst();
         if(info.isPresent()) {
             return info.get();
         }

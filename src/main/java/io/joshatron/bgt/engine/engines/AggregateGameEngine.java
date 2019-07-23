@@ -6,21 +6,21 @@ import io.joshatron.bgt.engine.action.Action;
 
 import java.util.List;
 
-public abstract class AggregateGameEngine implements GameEngine {
-    public abstract GameEngine getEngineForState(GameState state);
+public abstract class AggregateGameEngine<S extends GameState> implements GameEngine<S> {
+    public abstract GameEngine<S> getEngineForState(S state);
 
     @Override
-    public boolean isLegalAction(GameState state, Action action) {
+    public boolean isLegalAction(S state, Action action) {
         return getEngineForState(state).isLegalAction(state, action);
     }
 
     @Override
-    public void submitAction(GameState state, Action action) throws BoardGameEngineException {
+    public void submitAction(S state, Action action) throws BoardGameEngineException {
         getEngineForState(state).submitAction(state, action);
     }
 
     @Override
-    public List<Action> getPossibleActions(GameState state) throws BoardGameEngineException {
+    public List<Action> getPossibleActions(S state) throws BoardGameEngineException {
         return getEngineForState(state).getPossibleActions(state);
     }
 }

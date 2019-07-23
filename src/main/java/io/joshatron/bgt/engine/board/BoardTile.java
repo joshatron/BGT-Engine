@@ -7,6 +7,6 @@ import java.io.Serializable;
 
 @Data
 @AllArgsConstructor
-public class BoardTile implements Serializable {
-    private BoardLocation location;
+public class BoardTile<T extends BoardLocation> implements Serializable {
+    private T location;
 }

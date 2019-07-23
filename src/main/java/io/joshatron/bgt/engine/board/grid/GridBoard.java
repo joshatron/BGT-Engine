@@ -1,6 +1,5 @@
 package io.joshatron.bgt.engine.board.grid;
 
-import io.joshatron.bgt.engine.board.BoardLocation;
 import io.joshatron.bgt.engine.board.BoardTile;
 import io.joshatron.bgt.engine.board.GameBoard;
 import io.joshatron.bgt.engine.exception.BoardGameCommonErrorCode;
@@ -9,42 +8,42 @@ import lombok.Data;
 import org.apache.commons.lang.SerializationUtils;
 
 @Data
-public class GridBoard extends GameBoard {
-    private BoardTile[][] board;
+public class GridBoard<T extends BoardTile> extends GameBoard<T,GridBoardLocation> {
+    private T[][] board;
     private int width; //x size
     private int height; //y size
 
-    public GridBoard(int width, int height, BoardTile template) {
+    public GridBoard(int width, int height, T template) {
         super();
         this.width = width;
         this.height = height;
-        board = new BoardTile[width][height];
+        board = (T[][]) new BoardTile[width][height];
 
         for(int x = 0; x < width; x++) {
             for(int y = 0; y < height; y++) {
-                board[x][y] = (BoardTile) SerializationUtils.clone(template);
+                board[x][y] = (T) SerializationUtils.clone(template);
                 board[x][y].setLocation(new GridBoardLocation(x, y));
                 getAllTiles().add(board[x][y]);
             }
         }
     }
 
-    public GridBoard(BoardTile[][] initialBoard) {
+    public GridBoard(T[][] initialBoard) {
         board = initialBoard;
         width = board.length;
         height = board[0].length;
     }
 
-    public BoardTile getTile(int x, int y) throws BoardGameEngineException {
+    public T getTile(int x, int y) throws BoardGameEngineException {
         return getTile(new GridBoardLocation(x, y));
     }
 
     @Override
-    public BoardTile getTile(BoardLocation location) throws BoardGameEngineException {
+    public T getTile(GridBoardLocation location) throws BoardGameEngineException {
         if(!onBoard(location)) {
             throw new BoardGameEngineException(BoardGameCommonErrorCode.OFF_BOARD);
         }
-        GridBoardLocation loc = (GridBoardLocation)location;
+        GridBoardLocation loc = location;
 
         return board[loc.getX()][loc.getY()];
     }
@@ -54,11 +53,8 @@ public class GridBoard extends GameBoard {
     }
 
     @Override
-    public boolean onBoard(BoardLocation location) {
-        if(!(location instanceof GridBoardLocation)) {
-            return false;
-        }
-        GridBoardLocation loc = (GridBoardLocation)location;
+    public boolean onBoard(GridBoardLocation location) {
+        GridBoardLocation loc = location;
 
         return loc.getX() >= 0 && loc.getY() >= 0 && loc.getX() < width && loc.getY() < height;
     }

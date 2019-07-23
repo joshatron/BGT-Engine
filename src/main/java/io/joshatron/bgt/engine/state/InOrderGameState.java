@@ -10,16 +10,16 @@ import java.util.List;
 import java.util.Optional;
 
 @Data
-public class InOrderGameState extends GameState {
+public class InOrderGameState<S extends GameStatus, P extends PlayerInfo> extends GameState<S,P> {
     private int currentPlayer;
     private int skip;
     private boolean reverse;
 
-    public InOrderGameState(GameStatus initialStatus) {
+    public InOrderGameState(S initialStatus) {
         super(initialStatus);
     }
 
-    public InOrderGameState(GameStatus initialStatus, List<PlayerInfo> players, int currentPlayer) {
+    public InOrderGameState(S initialStatus, List<P> players, int currentPlayer) {
         super(initialStatus, players);
         this.currentPlayer = currentPlayer;
         this.skip = 0;
@@ -30,8 +30,8 @@ public class InOrderGameState extends GameState {
         return "Display not implemented: " + this.toString();
     }
 
-    public PlayerInfo getPlayerInfo(String player) throws BoardGameEngineException {
-        Optional<PlayerInfo> info = getPlayers().stream().filter(playerInfo -> playerInfo.getIdentifier().equals(player)).findFirst();
+    public P getPlayerInfo(PlayerIndicator player) throws BoardGameEngineException {
+        Optional<P> info = getPlayers().stream().filter(playerInfo -> playerInfo.getIdentifier() == player).findFirst();
         if(info.isPresent()) {
             return info.get();
         }
@@ -39,11 +39,19 @@ public class InOrderGameState extends GameState {
         throw new BoardGameEngineException(BoardGameCommonErrorCode.INVALID_PLAYER);
     }
 
-    public PlayerInfo getCurrentPlayerInfo() throws BoardGameEngineException {
+    public P getCurrentPlayerInfo() throws BoardGameEngineException {
+        if(getStatus().getStatus() == Status.COMPLETE) {
+            throw new BoardGameEngineException(BoardGameCommonErrorCode.GAME_FINISHED);
+        }
+
         return getPlayers().get(currentPlayer);
     }
 
-    public PlayerInfo getNextPlayerInfo() throws BoardGameEngineException {
+    public P getNextPlayerInfo() throws BoardGameEngineException {
+        if(getStatus().getStatus() == Status.COMPLETE) {
+            throw new BoardGameEngineException(BoardGameCommonErrorCode.GAME_FINISHED);
+        }
+
         if(!reverse) {
             return getPlayers().get((currentPlayer + (1 + skip)) % getPlayers().size());
         }

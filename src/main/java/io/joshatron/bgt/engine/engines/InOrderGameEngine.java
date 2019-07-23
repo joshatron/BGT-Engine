@@ -2,47 +2,46 @@ package io.joshatron.bgt.engine.engines;
 
 import io.joshatron.bgt.engine.exception.BoardGameCommonErrorCode;
 import io.joshatron.bgt.engine.exception.BoardGameEngineException;
-import io.joshatron.bgt.engine.state.GameState;
 import io.joshatron.bgt.engine.state.InOrderGameState;
 import io.joshatron.bgt.engine.action.Action;
 import io.joshatron.bgt.engine.action.ActionResult;
 
-public abstract class InOrderGameEngine implements GameEngine {
-    protected abstract boolean isActionValid(InOrderGameState state, Action action);
-    protected abstract ActionResult updateState(InOrderGameState state, Action action);
-    protected abstract boolean isTurnDone(InOrderGameState state);
+public abstract class InOrderGameEngine<S extends InOrderGameState> implements GameEngine<S> {
+    protected abstract boolean isActionValid(S state, Action action);
+    protected abstract ActionResult updateState(S state, Action action);
+    protected abstract boolean isTurnDone(S state);
 
     @Override
-    public boolean isLegalAction(GameState state, Action action) {
-        if(!(state instanceof InOrderGameState)) {
+    public boolean isLegalAction(S state, Action action) {
+        try {
+            if(!isPlayersTurn(state, action)) {
+                return false;
+            }
+        } catch(BoardGameEngineException e) {
             return false;
         }
 
-        if(!isPlayersTurn((InOrderGameState) state, action)) {
-            return false;
-        }
-
-        return isActionValid((InOrderGameState) state, action);
+        return isActionValid(state, action);
     }
 
-    private boolean isPlayersTurn(InOrderGameState state, Action action) {
-        return state.getPlayers().get(state.getCurrentPlayer()).getIdentifier() == action.getPlayer();
+    private boolean isPlayersTurn(S state, Action action) throws BoardGameEngineException {
+        return state.getCurrentPlayerInfo().getIdentifier() == action.getPlayer();
     }
 
     @Override
-    public void submitAction(GameState state, Action action) throws BoardGameEngineException {
+    public void submitAction(S state, Action action) throws BoardGameEngineException {
         if(isLegalAction(state, action)) {
-            ActionResult result = updateState((InOrderGameState) state, action);
+            ActionResult result = updateState(state, action);
             state.addToLog(action, result);
-            if(isTurnDone((InOrderGameState) state)) {
-                updateCurrentTurn((InOrderGameState) state);
+            if(isTurnDone(state)) {
+                updateCurrentTurn(state);
             }
         } else {
             throw new BoardGameEngineException(BoardGameCommonErrorCode.ILLEGAL_TURN);
         }
     }
 
-    private void updateCurrentTurn(InOrderGameState state) {
+    private void updateCurrentTurn(S state) {
         if(!state.isReverse()) {
             state.setCurrentPlayer((state.getCurrentPlayer() + (1 + state.getSkip())) % state.getPlayers().size());
         }

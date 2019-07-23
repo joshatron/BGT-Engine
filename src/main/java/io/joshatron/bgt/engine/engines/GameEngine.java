@@ -6,8 +6,8 @@ import io.joshatron.bgt.engine.action.Action;
 
 import java.util.List;
 
-public interface GameEngine {
-    boolean isLegalAction(GameState state, Action action);
-    void submitAction(GameState state, Action action) throws BoardGameEngineException;
-    List<Action> getPossibleActions(GameState state) throws BoardGameEngineException;
+public interface GameEngine<S extends GameState> {
+    boolean isLegalAction(S state, Action action);
+    void submitAction(S state, Action action) throws BoardGameEngineException;
+    List<Action> getPossibleActions(S state) throws BoardGameEngineException;
 }
