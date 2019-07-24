@@ -40,7 +40,7 @@ public class InOrderGameState<S extends GameStatus, P extends PlayerInfo> extend
     }
 
     public P getCurrentPlayerInfo() throws BoardGameEngineException {
-        if(getStatus().getStatus() == Status.COMPLETE) {
+        if(getStatus() != null && getStatus().getStatus() == Status.COMPLETE) {
             throw new BoardGameEngineException(BoardGameCommonErrorCode.GAME_FINISHED);
         }
 
@@ -48,7 +48,7 @@ public class InOrderGameState<S extends GameStatus, P extends PlayerInfo> extend
     }
 
     public P getNextPlayerInfo() throws BoardGameEngineException {
-        if(getStatus().getStatus() == Status.COMPLETE) {
+        if(getStatus() != null && getStatus().getStatus() == Status.COMPLETE) {
             throw new BoardGameEngineException(BoardGameCommonErrorCode.GAME_FINISHED);
         }
 
