@@ -43,9 +43,8 @@ public class GridBoard<T extends BoardTile> extends GameBoard<T,GridBoardLocatio
         if(!onBoard(location)) {
             throw new BoardGameEngineException(BoardGameCommonErrorCode.OFF_BOARD);
         }
-        GridBoardLocation loc = location;
 
-        return board[loc.getX()][loc.getY()];
+        return board[location.getX()][location.getY()];
     }
 
     public boolean onBoard(int x, int y) {
@@ -54,9 +53,7 @@ public class GridBoard<T extends BoardTile> extends GameBoard<T,GridBoardLocatio
 
     @Override
     public boolean onBoard(GridBoardLocation location) {
-        GridBoardLocation loc = location;
-
-        return loc.getX() >= 0 && loc.getY() >= 0 && loc.getX() < width && loc.getY() < height;
+        return location.getX() >= 0 && location.getY() >= 0 && location.getX() < width && location.getY() < height;
     }
 
     @Override

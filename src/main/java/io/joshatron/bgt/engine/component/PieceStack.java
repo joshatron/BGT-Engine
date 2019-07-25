@@ -1,5 +1,7 @@
-package io.joshatron.bgt.engine.board;
+package io.joshatron.bgt.engine.component;
 
+import io.joshatron.bgt.engine.board.BoardLocation;
+import io.joshatron.bgt.engine.board.BoardTile;
 import io.joshatron.bgt.engine.exception.BoardGameCommonErrorCode;
 import io.joshatron.bgt.engine.exception.BoardGameEngineException;
 import lombok.EqualsAndHashCode;
@@ -70,7 +72,8 @@ public class PieceStack<T extends BoardLocation,P extends Piece> extends BoardTi
         return pieces.size() == 0;
     }
 
-    // Prints top to bottom according to tak by mail rules
+    //Prints top to bottom
+    @Override
     public String toString() {
         if(pieces.isEmpty()) {
             return "";

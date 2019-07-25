@@ -1,4 +1,4 @@
-package io.joshatron.bgt.engine.player;
+package io.joshatron.bgt.engine.component;
 
 import io.joshatron.bgt.engine.exception.BoardGameCommonErrorCode;
 import io.joshatron.bgt.engine.exception.BoardGameEngineException;
@@ -9,7 +9,7 @@ import java.io.Serializable;
 
 @Data
 @AllArgsConstructor
-public class Pieces implements Serializable {
+public class PiecePile implements Serializable {
     private String type;
     private int piecesLeft;
 
@@ -28,5 +28,10 @@ public class Pieces implements Serializable {
 
     public boolean outOfPieces() {
         return piecesLeft == 0;
+    }
+
+    @Override
+    public String toString() {
+        return type + ": " + piecesLeft;
     }
 }
