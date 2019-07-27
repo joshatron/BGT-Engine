@@ -9,8 +9,8 @@ import java.io.Serializable;
 
 @Data
 @AllArgsConstructor
-public class PiecePile implements Serializable {
-    private String type;
+public class PiecePile<T extends Piece> implements Serializable {
+    private T type;
     private int piecesLeft;
 
     public void removePieces(int number) throws BoardGameEngineException {
@@ -32,6 +32,6 @@ public class PiecePile implements Serializable {
 
     @Override
     public String toString() {
-        return type + ": " + piecesLeft;
+        return type.toString() + ": " + piecesLeft;
     }
 }
