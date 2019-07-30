@@ -1,17 +1,26 @@
 package io.joshatron.bgt.engine.board.grid;
 
+import io.joshatron.bgt.engine.exception.BoardGameCommonErrorCode;
+import io.joshatron.bgt.engine.exception.BoardGameEngineException;
+
 public enum Direction {
-    NORTH,
-    SOUTH,
-    EAST,
-    WEST,
-    NORTHEAST,
-    NORTHWEST,
-    SOUTHEAST,
-    SOUTHWEST;
+    NORTH(false, "n"),
+    SOUTH(false, "s"),
+    EAST(false, "e"),
+    WEST(false, "w"),
+    NORTHEAST(true, "ne"),
+    NORTHWEST(true, "nw"),
+    SOUTHEAST(true, "ne"),
+    SOUTHWEST(true, "nw");
 
     private Direction opposite;
     private boolean diagonal;
+    private String acronym;
+
+    Direction(boolean diagonal, String acronym) {
+        this.diagonal = diagonal;
+        this.acronym = acronym;
+    }
 
     static {
         NORTH.opposite = SOUTH;
@@ -22,15 +31,6 @@ public enum Direction {
         NORTHWEST.opposite = SOUTHEAST;
         SOUTHEAST.opposite = NORTHWEST;
         SOUTHWEST.opposite = NORTHEAST;
-
-        NORTH.diagonal = false;
-        SOUTH.diagonal = false;
-        EAST.diagonal = false;
-        WEST.diagonal = false;
-        NORTHEAST.diagonal = true;
-        NORTHWEST.diagonal = true;
-        SOUTHEAST.diagonal = true;
-        SOUTHWEST.diagonal = true;
     }
 
     public Direction opposite() {
@@ -39,5 +39,19 @@ public enum Direction {
 
     public boolean isDiagonal() {
         return diagonal;
+    }
+
+    public String getAcronym() {
+        return acronym;
+    }
+
+    public static Direction fromString(String direction) throws BoardGameEngineException {
+        for(Direction dir : Direction.values()) {
+            if(dir.acronym.equalsIgnoreCase(direction)) {
+                return dir;
+            }
+        }
+
+        throw new BoardGameEngineException(BoardGameCommonErrorCode.INVALID_DIRECTION);
     }
 }

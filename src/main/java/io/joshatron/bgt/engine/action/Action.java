@@ -1,5 +1,6 @@
 package io.joshatron.bgt.engine.action;
 
+import io.joshatron.bgt.engine.exception.BoardGameEngineException;
 import io.joshatron.bgt.engine.player.PlayerIndicator;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,7 +12,7 @@ import java.io.Serializable;
 public class Action implements Serializable {
     private PlayerIndicator player;
 
-    public static Action createFromString(String action) {
+    public static Action createFromString(String action) throws BoardGameEngineException {
         return new Action(PlayerIndicator.valueOf(action));
     }
 }
