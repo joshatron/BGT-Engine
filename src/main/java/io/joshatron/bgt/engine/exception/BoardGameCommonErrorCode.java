@@ -10,6 +10,7 @@ public enum BoardGameCommonErrorCode implements BoardGameErrorCode {
     INVALID_DIRECTION,
     IN_ORDER_QUESTION_ONLY,
     TOO_MANY_PIECES_TO_REMOVE,
+    INVALID_INPUT,
     GAME_FINISHED;
 
     @Override

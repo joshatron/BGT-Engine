@@ -17,9 +17,11 @@ public class GridBoardLocation implements BoardLocation {
         location = location.toLowerCase();
         int breakPoint = -1;
         for(int i = 0; i < location.length(); i++) {
-            if(Character.isDigit(location.charAt(i))) {
+            if(breakPoint == -1 && Character.isDigit(location.charAt(i))) {
                 breakPoint = i;
-                break;
+            }
+            if(!Character.isDigit(location.charAt(i)) && !Character.isAlphabetic(location.charAt(i))) {
+                throw new BoardGameEngineException(BoardGameCommonErrorCode.INVALID_INPUT);
             }
         }
         if(breakPoint < 1) {
@@ -30,12 +32,17 @@ public class GridBoardLocation implements BoardLocation {
         int multiplier = 1;
 
         for(int i = breakPoint - 1; i >= 0; i--) {
-            total += ((int)location.charAt(i) - (int)'a') * multiplier;
+            if(i == breakPoint - 1) {
+                total += ((int) location.charAt(i) - (int) 'a') * multiplier;
+            }
+            else {
+                total += ((int) location.charAt(i) - (int) 'a' + 1) * multiplier;
+            }
             multiplier *= 26;
         }
 
         this.x = total;
-        this.y = Integer.getInteger(location.substring(breakPoint));
+        this.y = Integer.parseInt(location.substring(breakPoint));
     }
 
     public void move(Direction direction, int distance) {
