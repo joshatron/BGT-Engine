@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Getter
-@EqualsAndHashCode
+@EqualsAndHashCode(callSuper = true)
 public class PieceStack<T extends BoardLocation,P extends Piece> extends BoardTile<T> {
 
     //from bottom to top

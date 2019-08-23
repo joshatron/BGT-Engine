@@ -5,16 +5,23 @@ import io.joshatron.bgt.engine.board.GameBoard;
 import io.joshatron.bgt.engine.exception.BoardGameCommonErrorCode;
 import io.joshatron.bgt.engine.exception.BoardGameEngineException;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.apache.commons.lang.SerializationUtils;
 
+@EqualsAndHashCode(callSuper = true)
 @Data
 public class GridBoard<T extends BoardTile> extends GameBoard<T,GridBoardLocation> {
     private T[][] board;
     private int width; //x size
     private int height; //y size
 
-    public GridBoard(int width, int height, T template) {
+    public GridBoard(int width, int height, T template) throws BoardGameEngineException {
         super();
+
+        if(width < 1 || height < 1) {
+            throw new BoardGameEngineException(BoardGameCommonErrorCode.INVALID_BOARD_INITIALIZATION);
+        }
+
         this.width = width;
         this.height = height;
         board = (T[][]) new BoardTile[width][height];
