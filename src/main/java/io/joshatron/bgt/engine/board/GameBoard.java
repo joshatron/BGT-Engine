@@ -1,5 +1,6 @@
 package io.joshatron.bgt.engine.board;
 
+import io.joshatron.bgt.engine.component.Component;
 import io.joshatron.bgt.engine.exception.BoardGameEngineException;
 import lombok.Data;
 
@@ -8,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Data
-public abstract class GameBoard<T extends BoardTile,L extends BoardLocation> implements Serializable {
+public abstract class GameBoard<T extends Component,L extends BoardLocation> implements Serializable {
     private List<T> allTiles;
 
     public GameBoard() {

@@ -1,24 +1,19 @@
 package io.joshatron.bgt.engine.component;
 
-import io.joshatron.bgt.engine.board.BoardLocation;
-import io.joshatron.bgt.engine.board.BoardTile;
 import io.joshatron.bgt.engine.exception.BoardGameCommonErrorCode;
 import io.joshatron.bgt.engine.exception.BoardGameEngineException;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Getter
-@EqualsAndHashCode(callSuper = true)
-public class PieceStack<T extends BoardLocation,P extends Piece> extends BoardTile<T> {
+public class PieceStack<P extends Piece> implements Component {
 
     //from bottom to top
     private ArrayList<P> pieces;
 
-    public PieceStack(T location) {
-        super(location);
+    public PieceStack() {
         pieces = new ArrayList<>();
     }
 

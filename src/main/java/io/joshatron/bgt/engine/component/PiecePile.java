@@ -2,13 +2,10 @@ package io.joshatron.bgt.engine.component;
 
 import io.joshatron.bgt.engine.exception.BoardGameCommonErrorCode;
 import io.joshatron.bgt.engine.exception.BoardGameEngineException;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 
-import java.io.Serializable;
-
 @Data
-public class PiecePile<T extends Piece> implements Serializable {
+public class PiecePile<T extends Piece> implements Component {
     private T type;
     private int piecesLeft;
 

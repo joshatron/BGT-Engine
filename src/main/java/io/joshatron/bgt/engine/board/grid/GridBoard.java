@@ -2,6 +2,7 @@ package io.joshatron.bgt.engine.board.grid;
 
 import io.joshatron.bgt.engine.board.BoardTile;
 import io.joshatron.bgt.engine.board.GameBoard;
+import io.joshatron.bgt.engine.component.Component;
 import io.joshatron.bgt.engine.exception.BoardGameCommonErrorCode;
 import io.joshatron.bgt.engine.exception.BoardGameEngineException;
 import lombok.Data;
@@ -10,7 +11,7 @@ import org.apache.commons.lang.SerializationUtils;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class GridBoard<T extends BoardTile> extends GameBoard<T,GridBoardLocation> {
+public class GridBoard<T extends Component> extends GameBoard<T,GridBoardLocation> {
     private T[][] board;
     private int width; //x size
     private int height; //y size
@@ -29,7 +30,6 @@ public class GridBoard<T extends BoardTile> extends GameBoard<T,GridBoardLocatio
         for(int x = 0; x < width; x++) {
             for(int y = 0; y < height; y++) {
                 board[x][y] = (T) SerializationUtils.clone(template);
-                board[x][y].setLocation(new GridBoardLocation(x, y));
                 getAllTiles().add(board[x][y]);
             }
         }
