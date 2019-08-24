@@ -23,7 +23,10 @@ public class PieceStack<P extends Piece> implements Component {
         this.pieces.addAll(pieces);
     }
 
-    public void addPiece(P piece) {
+    public void addPiece(P piece) throws BoardGameEngineException {
+        if(piece == null) {
+            throw new BoardGameEngineException(BoardGameCommonErrorCode.INVALID_PIECE);
+        }
         pieces.add(piece);
     }
 

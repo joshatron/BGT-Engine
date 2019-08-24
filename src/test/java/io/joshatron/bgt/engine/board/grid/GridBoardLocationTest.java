@@ -17,7 +17,6 @@ public class GridBoardLocationTest {
             Assert.assertEquals(location.getX(), 16);
             Assert.assertEquals(location.getY(), 8);
         } catch(BoardGameEngineException e) {
-            e.printStackTrace();
             Assert.fail();
         }
     }
@@ -32,7 +31,6 @@ public class GridBoardLocationTest {
             Assert.assertEquals(location.getX(), 1433);
             Assert.assertEquals(location.getY(), 7796);
         } catch(BoardGameEngineException e) {
-            e.printStackTrace();
             Assert.fail();
         }
     }
