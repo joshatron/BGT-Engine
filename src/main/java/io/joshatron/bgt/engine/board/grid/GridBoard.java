@@ -8,6 +8,8 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.apache.commons.lang.SerializationUtils;
 
+import java.util.Arrays;
+
 @EqualsAndHashCode(callSuper = true)
 @Data
 public class GridBoard<T extends Component> extends GameBoard<T,GridBoardLocation> {
@@ -30,6 +32,7 @@ public class GridBoard<T extends Component> extends GameBoard<T,GridBoardLocatio
             for(int y = 0; y < height; y++) {
                 board[x][y] = (T) SerializationUtils.clone(template);
                 getAllTiles().add(board[x][y]);
+                getAllLocations().add(new GridBoardLocation(x, y));
             }
         }
     }

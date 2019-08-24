@@ -13,6 +13,11 @@ public class GridBoardLocation implements BoardLocation {
     private int x;
     private int y;
 
+    public GridBoardLocation(GridBoardLocation location) {
+        this.x = location.x;
+        this.y = location.y;
+    }
+
     public GridBoardLocation(String location) throws BoardGameEngineException {
         location = location.toLowerCase();
         int breakPoint = -1;

@@ -2,11 +2,13 @@ package io.joshatron.bgt.engine.component;
 
 import io.joshatron.bgt.engine.exception.BoardGameCommonErrorCode;
 import io.joshatron.bgt.engine.exception.BoardGameEngineException;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@EqualsAndHashCode
 @Getter
 public class PieceStack<P extends Piece> implements Component {
 
