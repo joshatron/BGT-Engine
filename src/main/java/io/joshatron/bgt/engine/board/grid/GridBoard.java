@@ -1,6 +1,5 @@
 package io.joshatron.bgt.engine.board.grid;
 
-import io.joshatron.bgt.engine.board.BoardTile;
 import io.joshatron.bgt.engine.board.GameBoard;
 import io.joshatron.bgt.engine.component.Component;
 import io.joshatron.bgt.engine.exception.BoardGameCommonErrorCode;
@@ -25,7 +24,7 @@ public class GridBoard<T extends Component> extends GameBoard<T,GridBoardLocatio
 
         this.width = width;
         this.height = height;
-        board = (T[][]) new BoardTile[width][height];
+        board = (T[][]) new Component[width][height];
 
         for(int x = 0; x < width; x++) {
             for(int y = 0; y < height; y++) {

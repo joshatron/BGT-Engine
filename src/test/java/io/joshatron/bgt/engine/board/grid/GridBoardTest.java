@@ -1,8 +1,9 @@
 package io.joshatron.bgt.engine.board.grid;
 
-import io.joshatron.bgt.engine.board.BoardTile;
+import io.joshatron.bgt.engine.component.Piece;
 import io.joshatron.bgt.engine.exception.BoardGameCommonErrorCode;
 import io.joshatron.bgt.engine.exception.BoardGameEngineException;
+import io.joshatron.bgt.engine.player.PlayerIndicator;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -10,11 +11,11 @@ public class GridBoardTest {
     @Test
     public void initializeBoardTemplate() {
         try {
-            GridBoard<BoardTile<GridBoardLocation>> board = new GridBoard<>(3, 4, new BoardTile<>(new GridBoardLocation(0,0)));
+            GridBoard<Piece> board = new GridBoard<>(3, 4, new Piece(PlayerIndicator.WHITE));
 
             for(int x = 0; x < 3; x++) {
                 for(int y = 0; y < 4; y++) {
-                        Assert.assertEquals(board.getTile(new GridBoardLocation(x,y)), new BoardTile<>(new GridBoardLocation(x,y)));
+                        Assert.assertEquals(board.getTile(new GridBoardLocation(x,y)), new Piece(PlayerIndicator.WHITE));
                 }
             }
         } catch(BoardGameEngineException e) {
@@ -33,7 +34,7 @@ public class GridBoardTest {
 
     private void testInitialization(int width, int height) {
         try {
-            GridBoard<BoardTile<GridBoardLocation>> board = new GridBoard<>(width, height, new BoardTile<>(new GridBoardLocation(0,0)));
+            GridBoard<Piece> board = new GridBoard<>(width, height, new Piece(PlayerIndicator.WHITE));
             Assert.fail();
         } catch(BoardGameEngineException e) {
             Assert.assertEquals(e.getCode(), BoardGameCommonErrorCode.INVALID_BOARD_INITIALIZATION);
@@ -42,26 +43,26 @@ public class GridBoardTest {
 
     @Test
     public void initializeBoardInitialBoard() {
-        BoardTile<GridBoardLocation>[][] tiles = new BoardTile[2][3];
-        tiles[0][0] = new BoardTile<>(new GridBoardLocation(0,0));
-        tiles[1][0] = new BoardTile<>(new GridBoardLocation(1,0));
-        tiles[0][1] = new BoardTile<>(new GridBoardLocation(0,1));
-        tiles[1][1] = new BoardTile<>(new GridBoardLocation(1,1));
-        tiles[0][2] = new BoardTile<>(new GridBoardLocation(0,2));
-        tiles[1][2] = new BoardTile<>(new GridBoardLocation(1,2));
+        Piece[][] tiles = new Piece[2][3];
+        tiles[0][0] = new Piece(PlayerIndicator.WHITE);
+        tiles[1][0] = new Piece(PlayerIndicator.WHITE);
+        tiles[0][1] = new Piece(PlayerIndicator.WHITE);
+        tiles[1][1] = new Piece(PlayerIndicator.WHITE);
+        tiles[0][2] = new Piece(PlayerIndicator.WHITE);
+        tiles[1][2] = new Piece(PlayerIndicator.WHITE);
 
-        GridBoard<BoardTile<GridBoardLocation>> board = new GridBoard<>(tiles);
+        GridBoard<Piece> board = new GridBoard<>(tiles);
         Assert.assertEquals(board.getWidth(), 2);
         Assert.assertEquals(board.getHeight(), 3);
     }
 
     @Test
     public void getTileOffBoard() {
-        GridBoard<BoardTile<GridBoardLocation>> board = null;
+        GridBoard<Piece> board = null;
         try {
-            board = new GridBoard<>(3, 4, new BoardTile<>(new GridBoardLocation(0,0)));
-            Assert.assertEquals(board.getTile(1,1), new BoardTile(new GridBoardLocation(1,1)));
-            Assert.assertEquals(board.getTile(new GridBoardLocation(1,2)), new BoardTile(new GridBoardLocation(1,2)));
+            board = new GridBoard<>(3, 4, new Piece(PlayerIndicator.WHITE));
+            Assert.assertEquals(board.getTile(1,1), new Piece(PlayerIndicator.WHITE));
+            Assert.assertEquals(board.getTile(new GridBoardLocation(1,2)), new Piece(PlayerIndicator.WHITE));
         } catch(BoardGameEngineException e) {
             Assert.fail();
         }
@@ -72,7 +73,7 @@ public class GridBoardTest {
         testGetTile(board, 2, 4);
     }
 
-    private void testGetTile(GridBoard<BoardTile<GridBoardLocation>> board, int x, int y) {
+    private void testGetTile(GridBoard<Piece> board, int x, int y) {
         try {
             board.getTile(new GridBoardLocation(x, y));
         } catch(BoardGameEngineException e) {
@@ -89,7 +90,7 @@ public class GridBoardTest {
     @Test
     public void onBoardOffBoard() {
         try {
-            GridBoard<BoardTile<GridBoardLocation>> board = new GridBoard<>(3, 4, new BoardTile<>(new GridBoardLocation(0,0)));
+            GridBoard<Piece> board = new GridBoard<>(3, 4, new Piece(PlayerIndicator.WHITE));
             Assert.assertTrue(board.onBoard(1,2));
             Assert.assertTrue(board.onBoard(new GridBoardLocation(1,2)));
             Assert.assertFalse(board.onBoard(-3,2));
