@@ -8,6 +8,7 @@ public enum BoardGameCommonErrorCode implements BoardGameErrorCode {
     INVALID_PLAYER,
     NOT_ENOUGH_PIECES,
     INVALID_DIRECTION,
+    INVALID_NUMBER,
     IN_ORDER_QUESTION_ONLY,
     TOO_MANY_PIECES_TO_REMOVE,
     INVALID_INPUT,
