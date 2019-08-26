@@ -19,7 +19,12 @@ public class PieceStack<P extends Piece> implements Component {
         pieces = new ArrayList<>();
     }
 
-    public void addPieces(List<P> pieces) {
+    public void addPieces(List<P> pieces) throws BoardGameEngineException {
+        for(P piece : pieces) {
+            if(piece == null) {
+                throw new BoardGameEngineException(BoardGameCommonErrorCode.INVALID_PIECE);
+            }
+        }
         this.pieces.addAll(pieces);
     }
 
