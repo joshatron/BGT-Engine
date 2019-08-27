@@ -36,6 +36,9 @@ public class PieceStack<P extends Piece> implements Component {
     }
 
     public List<P> removePieces(int toRemove) throws BoardGameEngineException {
+        if(toRemove < 0) {
+            throw new BoardGameEngineException(BoardGameCommonErrorCode.INVALID_NUMBER);
+        }
         if(toRemove > pieces.size()) {
             throw new BoardGameEngineException(BoardGameCommonErrorCode.TOO_MANY_PIECES_TO_REMOVE);
         }
@@ -57,6 +60,9 @@ public class PieceStack<P extends Piece> implements Component {
     }
 
     public List<P> getTopPieces(int num) throws BoardGameEngineException {
+        if(num < 0) {
+            throw new BoardGameEngineException(BoardGameCommonErrorCode.INVALID_NUMBER);
+        }
         if(num > pieces.size()) {
             throw new BoardGameEngineException(BoardGameCommonErrorCode.TOO_MANY_PIECES_TO_REMOVE);
         }
@@ -74,7 +80,7 @@ public class PieceStack<P extends Piece> implements Component {
     }
 
     public boolean isEmpty() {
-        return pieces.size() == 0;
+        return pieces.isEmpty();
     }
 
     //Prints top to bottom
@@ -88,6 +94,9 @@ public class PieceStack<P extends Piece> implements Component {
 
         for(int i = pieces.size() - 1; i >= 0; i--) {
             str.append(pieces.get(i).toString());
+            if(i != 0) {
+                str.append(':');
+            }
         }
 
         return str.toString();

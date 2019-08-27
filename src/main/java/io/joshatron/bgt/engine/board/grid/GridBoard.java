@@ -8,8 +8,6 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.apache.commons.lang.SerializationUtils;
 
-import java.util.Arrays;
-
 @EqualsAndHashCode(callSuper = true)
 @Data
 public class GridBoard<T extends Component> extends GameBoard<T,GridBoardLocation> {
@@ -81,10 +79,21 @@ public class GridBoard<T extends Component> extends GameBoard<T,GridBoardLocatio
 
         int rowLength = (3 + max) * width + 1;
         StringBuilder toReturn = new StringBuilder();
+
+        toReturn.append("    ");
+        for(int x = 0; x < width; x++) {
+            toReturn.append((char)('A' + x));
+            toReturn.append(toStringExtraSpaces(" ", max));
+            toReturn.append("   ");
+        }
+        toReturn.append('\n');
+
+        toReturn.append("  ");
         toReturn.append(toStringRow(rowLength));
 
         for(int y = 0; y < height; y++) {
-            toReturn.append('|');
+            toReturn.append(y + 1);
+            toReturn.append(" |");
             for(int x = 0; x < width; x++) {
                 toReturn.append(' ');
                 toReturn.append(tiles[x][y]);
@@ -92,6 +101,7 @@ public class GridBoard<T extends Component> extends GameBoard<T,GridBoardLocatio
                 toReturn.append(" |");
             }
             toReturn.append('\n');
+            toReturn.append("  ");
             toReturn.append(toStringRow(rowLength));
         }
 

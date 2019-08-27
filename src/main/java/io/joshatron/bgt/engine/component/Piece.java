@@ -8,4 +8,9 @@ import lombok.Data;
 @AllArgsConstructor
 public class Piece implements Component {
     PlayerIndicator owner;
+
+    @Override
+    public String toString() {
+        return owner.getAcronym().toUpperCase();
+    }
 }
