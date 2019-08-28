@@ -6,13 +6,13 @@ import io.joshatron.bgt.engine.state.InOrderGameState;
 import io.joshatron.bgt.engine.action.Action;
 import io.joshatron.bgt.engine.action.ActionResult;
 
-public abstract class InOrderGameEngine<S extends InOrderGameState> implements GameEngine<S> {
-    protected abstract boolean isActionValid(S state, Action action);
-    protected abstract ActionResult updateState(S state, Action action) throws BoardGameEngineException;
+public abstract class InOrderGameEngine<S extends InOrderGameState,A extends Action> implements GameEngine<S,A> {
+    protected abstract boolean isActionValid(S state, A action);
+    protected abstract ActionResult updateState(S state, A action) throws BoardGameEngineException;
     protected abstract boolean isTurnDone(S state);
 
     @Override
-    public boolean isLegalAction(S state, Action action) {
+    public boolean isLegalAction(S state, A action) {
         try {
             if(!isPlayersTurn(state, action)) {
                 return false;
@@ -24,12 +24,12 @@ public abstract class InOrderGameEngine<S extends InOrderGameState> implements G
         return isActionValid(state, action);
     }
 
-    private boolean isPlayersTurn(S state, Action action) throws BoardGameEngineException {
+    private boolean isPlayersTurn(S state, A action) throws BoardGameEngineException {
         return state.getCurrentPlayerInfo().getIdentifier() == action.getPlayer();
     }
 
     @Override
-    public void submitAction(S state, Action action) throws BoardGameEngineException {
+    public void submitAction(S state, A action) throws BoardGameEngineException {
         if(isLegalAction(state, action)) {
             ActionResult result = updateState(state, action);
             state.addToLog(action, result);
