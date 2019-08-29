@@ -1,4 +1,4 @@
-package io.joshatron.bgt.engine.inorder;
+package io.joshatron.bgt.engine.tictactoe;
 
 import io.joshatron.bgt.engine.action.Action;
 import io.joshatron.bgt.engine.board.grid.GridBoardLocation;

@@ -47,7 +47,7 @@ public class GridBoardLocation implements BoardLocation {
         }
 
         this.x = total;
-        this.y = Integer.parseInt(location.substring(breakPoint));
+        this.y = Integer.parseInt(location.substring(breakPoint)) - 1;
     }
 
     public void move(Direction direction, int distance) {

@@ -1,4 +1,4 @@
-package io.joshatron.bgt.engine.inorder;
+package io.joshatron.bgt.engine.tictactoe;
 
 import io.joshatron.bgt.engine.component.Piece;
 import io.joshatron.bgt.engine.player.PlayerIndicator;
