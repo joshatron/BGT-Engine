@@ -66,7 +66,7 @@ public class GridBoard<T extends Component> extends GameBoard<T,GridBoardLocatio
     @Override
     public String toString() {
         String[][] tiles = new String[width][height];
-        int max = 0;
+        int max = 1;
 
         for(int x = 0; x < width; x++) {
             for(int y = 0; y < height; y++) {
