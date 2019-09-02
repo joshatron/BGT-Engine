@@ -1,4 +1,4 @@
-package io.joshatron.bgt.engine.board;
+package io.joshatron.bgt.engine.component.board;
 
 import java.io.Serializable;
 

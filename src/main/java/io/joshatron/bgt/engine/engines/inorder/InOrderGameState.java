@@ -1,9 +1,12 @@
-package io.joshatron.bgt.engine.state;
+package io.joshatron.bgt.engine.engines.inorder;
 
 import io.joshatron.bgt.engine.exception.BoardGameCommonErrorCode;
 import io.joshatron.bgt.engine.exception.BoardGameEngineException;
 import io.joshatron.bgt.engine.player.PlayerIndicator;
 import io.joshatron.bgt.engine.player.PlayerInfo;
+import io.joshatron.bgt.engine.state.GameState;
+import io.joshatron.bgt.engine.state.GameStatus;
+import io.joshatron.bgt.engine.state.Status;
 import lombok.Data;
 
 import java.util.List;

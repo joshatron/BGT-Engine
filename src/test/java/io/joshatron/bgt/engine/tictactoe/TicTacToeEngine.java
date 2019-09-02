@@ -1,9 +1,9 @@
 package io.joshatron.bgt.engine.tictactoe;
 
-import io.joshatron.bgt.engine.action.Action;
 import io.joshatron.bgt.engine.action.ActionResult;
-import io.joshatron.bgt.engine.board.grid.GridBoard;
-import io.joshatron.bgt.engine.engines.InOrderGameEngine;
+import io.joshatron.bgt.engine.component.board.grid.GridBoard;
+import io.joshatron.bgt.engine.engines.inorder.InOrderGameEngine;
+import io.joshatron.bgt.engine.engines.inorder.InOrderGameParameters;
 import io.joshatron.bgt.engine.exception.BoardGameEngineException;
 import io.joshatron.bgt.engine.player.PlayerIndicator;
 import io.joshatron.bgt.engine.state.GameStatus;
@@ -12,7 +12,7 @@ import io.joshatron.bgt.engine.state.Status;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class TicTacToeEngine extends InOrderGameEngine<TicTacToeState,TicTacToeAction> {
+public class TicTacToeEngine extends InOrderGameEngine<TicTacToeState,InOrderGameParameters,TicTacToeAction> {
 
     @Override
     protected boolean isActionValid(TicTacToeState state, TicTacToeAction action) {
@@ -77,7 +77,12 @@ public class TicTacToeEngine extends InOrderGameEngine<TicTacToeState,TicTacToeA
     }
 
     @Override
-    public List<Action> getPossibleActions(TicTacToeState state) throws BoardGameEngineException {
+    public TicTacToeState createInitialStateFromParameters(InOrderGameParameters gameParameters) throws BoardGameEngineException {
+        return new TicTacToeState();
+    }
+
+    @Override
+    public List<TicTacToeAction> getPossibleActions(TicTacToeState state) throws BoardGameEngineException {
         return state.getBoard().getAllLocations().parallelStream().filter(location -> {
             try {
                 return state.getBoard().getTile(location).getOwner() == PlayerIndicator.NONE;

@@ -1,7 +1,7 @@
 package io.joshatron.bgt.engine.tictactoe;
 
 import io.joshatron.bgt.engine.action.Action;
-import io.joshatron.bgt.engine.board.grid.GridBoardLocation;
+import io.joshatron.bgt.engine.component.board.grid.GridBoardLocation;
 import io.joshatron.bgt.engine.player.PlayerIndicator;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

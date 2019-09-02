@@ -1,12 +1,12 @@
-package io.joshatron.bgt.engine.engines;
+package io.joshatron.bgt.engine.engines.inorder;
 
+import io.joshatron.bgt.engine.engines.GameEngine;
 import io.joshatron.bgt.engine.exception.BoardGameCommonErrorCode;
 import io.joshatron.bgt.engine.exception.BoardGameEngineException;
-import io.joshatron.bgt.engine.state.InOrderGameState;
 import io.joshatron.bgt.engine.action.Action;
 import io.joshatron.bgt.engine.action.ActionResult;
 
-public abstract class InOrderGameEngine<S extends InOrderGameState,A extends Action> implements GameEngine<S,A> {
+public abstract class InOrderGameEngine<S extends InOrderGameState,G extends InOrderGameParameters,A extends Action> implements GameEngine<S,G,A> {
     protected abstract boolean isActionValid(S state, A action);
     protected abstract ActionResult updateState(S state, A action) throws BoardGameEngineException;
     protected abstract boolean isTurnDone(S state);

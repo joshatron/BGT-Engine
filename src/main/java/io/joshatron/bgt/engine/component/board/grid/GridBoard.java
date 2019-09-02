@@ -1,7 +1,7 @@
-package io.joshatron.bgt.engine.board.grid;
+package io.joshatron.bgt.engine.component.board.grid;
 
-import io.joshatron.bgt.engine.board.GameBoard;
 import io.joshatron.bgt.engine.component.Component;
+import io.joshatron.bgt.engine.component.board.GameBoard;
 import io.joshatron.bgt.engine.exception.BoardGameCommonErrorCode;
 import io.joshatron.bgt.engine.exception.BoardGameEngineException;
 import lombok.Data;

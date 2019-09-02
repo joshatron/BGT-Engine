@@ -1,4 +1,4 @@
-package io.joshatron.bgt.engine.board.grid;
+package io.joshatron.bgt.engine.component.board.grid;
 
 
 import io.joshatron.bgt.engine.exception.BoardGameCommonErrorCode;
@@ -10,12 +10,12 @@ public class GridBoardLocationTest {
     @Test
     public void initializeWithStringSingleCharacters() {
         try {
-            GridBoardLocation location = new GridBoardLocation("a0");
+            GridBoardLocation location = new GridBoardLocation("a1");
             Assert.assertEquals(location.getX(), 0);
             Assert.assertEquals(location.getY(), 0);
             location = new GridBoardLocation("q8");
             Assert.assertEquals(location.getX(), 16);
-            Assert.assertEquals(location.getY(), 8);
+            Assert.assertEquals(location.getY(), 7);
         } catch(BoardGameEngineException e) {
             Assert.fail();
         }
@@ -26,10 +26,10 @@ public class GridBoardLocationTest {
         try {
             GridBoardLocation location = new GridBoardLocation("ac77");
             Assert.assertEquals(location.getX(), 28);
-            Assert.assertEquals(location.getY(), 77);
+            Assert.assertEquals(location.getY(), 76);
             location = new GridBoardLocation("bcd7796");
             Assert.assertEquals(location.getX(), 1433);
-            Assert.assertEquals(location.getY(), 7796);
+            Assert.assertEquals(location.getY(), 7795);
         } catch(BoardGameEngineException e) {
             Assert.fail();
         }

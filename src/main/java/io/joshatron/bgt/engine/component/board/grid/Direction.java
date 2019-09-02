@@ -1,4 +1,4 @@
-package io.joshatron.bgt.engine.board.grid;
+package io.joshatron.bgt.engine.component.board.grid;
 
 import io.joshatron.bgt.engine.exception.BoardGameCommonErrorCode;
 import io.joshatron.bgt.engine.exception.BoardGameEngineException;

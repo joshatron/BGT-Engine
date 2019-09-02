@@ -1,6 +1,7 @@
 package io.joshatron.bgt.engine.tictactoe;
 
-import io.joshatron.bgt.engine.board.grid.GridBoardLocation;
+import io.joshatron.bgt.engine.component.board.grid.GridBoardLocation;
+import io.joshatron.bgt.engine.engines.inorder.InOrderGameParameters;
 import io.joshatron.bgt.engine.exception.BoardGameEngineException;
 import io.joshatron.bgt.engine.player.PlayerIndicator;
 
@@ -9,8 +10,8 @@ import java.util.Scanner;
 public class TicTacToe {
     public static void main(String[] args) {
         try {
-            TicTacToeState state = new TicTacToeState();
             TicTacToeEngine engine = new TicTacToeEngine();
+            TicTacToeState state = engine.createInitialStateFromParameters(new InOrderGameParameters(PlayerIndicator.PLAYER_0));
 
             while(!state.getStatus().isComplete()) {
                 System.out.println(state.getBoard());

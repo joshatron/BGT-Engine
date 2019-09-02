@@ -1,11 +1,11 @@
 package io.joshatron.bgt.engine.tictactoe;
 
-import io.joshatron.bgt.engine.board.grid.GridBoard;
+import io.joshatron.bgt.engine.component.board.grid.GridBoard;
 import io.joshatron.bgt.engine.exception.BoardGameEngineException;
 import io.joshatron.bgt.engine.player.PlayerIndicator;
 import io.joshatron.bgt.engine.player.PlayerInfo;
 import io.joshatron.bgt.engine.state.GameStatus;
-import io.joshatron.bgt.engine.state.InOrderGameState;
+import io.joshatron.bgt.engine.engines.inorder.InOrderGameState;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

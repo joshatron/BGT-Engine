@@ -1,6 +1,6 @@
-package io.joshatron.bgt.engine.board.grid;
+package io.joshatron.bgt.engine.component.board.grid;
 
-import io.joshatron.bgt.engine.component.Piece;
+import io.joshatron.bgt.engine.component.piece.Piece;
 import io.joshatron.bgt.engine.exception.BoardGameCommonErrorCode;
 import io.joshatron.bgt.engine.exception.BoardGameEngineException;
 import io.joshatron.bgt.engine.player.PlayerIndicator;
