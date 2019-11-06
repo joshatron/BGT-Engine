@@ -24,7 +24,7 @@ public class TicTacToeEngine extends InOrderGameEngine<TicTacToeState,InOrderGam
     }
 
     @Override
-    protected ActionResult updateState(TicTacToeState state, TicTacToeAction action) throws BoardGameEngineException {
+    protected ActionResult updateState(TicTacToeState state, TicTacToeAction action) {
         state.getBoard().getTile(action.getLocation()).setOwner(action.getPlayer());
         checkForWinner(state);
         return null;
@@ -77,12 +77,12 @@ public class TicTacToeEngine extends InOrderGameEngine<TicTacToeState,InOrderGam
     }
 
     @Override
-    public TicTacToeState createInitialStateFromParameters(InOrderGameParameters gameParameters) throws BoardGameEngineException {
+    public TicTacToeState createInitialStateFromParameters(InOrderGameParameters gameParameters) {
         return new TicTacToeState();
     }
 
     @Override
-    public List<TicTacToeAction> getPossibleActions(TicTacToeState state) throws BoardGameEngineException {
+    public List<TicTacToeAction> getPossibleActions(TicTacToeState state) {
         return state.getBoard().getAllLocations().parallelStream().filter(location -> {
             try {
                 return state.getBoard().getTile(location).getOwner() == PlayerIndicator.NONE;

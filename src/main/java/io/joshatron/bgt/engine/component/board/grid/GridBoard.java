@@ -15,7 +15,7 @@ public class GridBoard<T extends Component> extends GameBoard<T,GridBoardLocatio
     private int width; //x size
     private int height; //y size
 
-    public GridBoard(int width, int height, T template) throws BoardGameEngineException {
+    public GridBoard(int width, int height, T template) {
         super();
 
         if(width < 1 || height < 1) {
@@ -41,12 +41,12 @@ public class GridBoard<T extends Component> extends GameBoard<T,GridBoardLocatio
         height = board[0].length;
     }
 
-    public T getTile(int x, int y) throws BoardGameEngineException {
+    public T getTile(int x, int y) {
         return getTile(new GridBoardLocation(x, y));
     }
 
     @Override
-    public T getTile(GridBoardLocation location) throws BoardGameEngineException {
+    public T getTile(GridBoardLocation location) {
         if(!onBoard(location)) {
             throw new BoardGameEngineException(BoardGameCommonErrorCode.OFF_BOARD);
         }

@@ -10,7 +10,7 @@ public class PiecePile<T extends Piece> implements Component {
     private T type;
     private int piecesLeft;
 
-    public PiecePile(T type, int initialAmount) throws BoardGameEngineException {
+    public PiecePile(T type, int initialAmount) {
         if(type == null) {
             throw new BoardGameEngineException(BoardGameCommonErrorCode.INVALID_TYPE);
         }
@@ -22,7 +22,7 @@ public class PiecePile<T extends Piece> implements Component {
         this.piecesLeft = initialAmount;
     }
 
-    public PiecePile(T type) throws BoardGameEngineException {
+    public PiecePile(T type) {
         if(type == null) {
             throw new BoardGameEngineException(BoardGameCommonErrorCode.INVALID_TYPE);
         }
@@ -31,7 +31,7 @@ public class PiecePile<T extends Piece> implements Component {
         this.piecesLeft = 0;
     }
 
-    public void removePieces(int number) throws BoardGameEngineException {
+    public void removePieces(int number) {
         if(number < 0) {
             throw new BoardGameEngineException(BoardGameCommonErrorCode.INVALID_NUMBER);
         }
@@ -43,7 +43,7 @@ public class PiecePile<T extends Piece> implements Component {
         }
     }
 
-    public void addPieces(int number) throws BoardGameEngineException {
+    public void addPieces(int number) {
         if(number < 0) {
             throw new BoardGameEngineException(BoardGameCommonErrorCode.INVALID_NUMBER);
         }

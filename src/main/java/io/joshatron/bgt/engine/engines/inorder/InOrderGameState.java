@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Data
-public class InOrderGameState<S extends GameStatus, P extends PlayerInfo> extends GameState<S,P> {
+public class InOrderGameState<S extends GameStatus, P extends PlayerInfo, G> extends GameState<S,P,G> {
     private int currentPlayer;
     private int skip;
     private boolean reverse;
@@ -29,11 +29,7 @@ public class InOrderGameState<S extends GameStatus, P extends PlayerInfo> extend
         this.reverse = false;
     }
 
-    public String getDisplayForPlayer(PlayerIndicator player) {
-        return "Display not implemented: " + this.toString();
-    }
-
-    public P getPlayerInfo(PlayerIndicator player) throws BoardGameEngineException {
+    public P getPlayerInfo(PlayerIndicator player) {
         Optional<P> info = getPlayers().stream().filter(playerInfo -> playerInfo.getIdentifier() == player).findFirst();
         if(info.isPresent()) {
             return info.get();
@@ -42,7 +38,7 @@ public class InOrderGameState<S extends GameStatus, P extends PlayerInfo> extend
         throw new BoardGameEngineException(BoardGameCommonErrorCode.INVALID_PLAYER);
     }
 
-    public P getCurrentPlayerInfo() throws BoardGameEngineException {
+    public P getCurrentPlayerInfo() {
         if(getStatus() != null && getStatus().getStatus() == Status.COMPLETE) {
             throw new BoardGameEngineException(BoardGameCommonErrorCode.GAME_FINISHED);
         }
@@ -50,7 +46,7 @@ public class InOrderGameState<S extends GameStatus, P extends PlayerInfo> extend
         return getPlayers().get(currentPlayer);
     }
 
-    public P getNextPlayerInfo() throws BoardGameEngineException {
+    public P getNextPlayerInfo() {
         if(getStatus() != null && getStatus().getStatus() == Status.COMPLETE) {
             throw new BoardGameEngineException(BoardGameCommonErrorCode.GAME_FINISHED);
         }

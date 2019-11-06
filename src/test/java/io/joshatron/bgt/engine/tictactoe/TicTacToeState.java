@@ -14,7 +14,7 @@ import lombok.EqualsAndHashCode;
 public class TicTacToeState extends InOrderGameState<GameStatus, PlayerInfo> {
     private GridBoard<TicTacToePiece> board;
 
-    public TicTacToeState() throws BoardGameEngineException {
+    public TicTacToeState() {
         super(new GameStatus());
         this.getPlayers().add(new PlayerInfo(PlayerIndicator.PLAYER_0));
         this.getPlayers().add(new PlayerInfo(PlayerIndicator.PLAYER_1));

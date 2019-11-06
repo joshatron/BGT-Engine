@@ -18,7 +18,7 @@ public class DeterministicGameTree {
         this.engine = engine;
     }
 
-    public void executeActionOnRoot(Action action) throws BoardGameEngineException {
+    public void executeActionOnRoot(Action action) {
         Optional<StateNode> selected = root.getChildren().stream().filter(node -> node.getState().getLatestAction().equals(action)).findFirst();
         if(selected.isPresent()) {
             root = selected.get();
@@ -34,7 +34,7 @@ public class DeterministicGameTree {
         return root;
     }
 
-    private boolean canWin(StateNode node) throws BoardGameEngineException {
+    private boolean canWin(StateNode node) {
         fillOutChildren(node);
         for(StateNode n : node.getChildren()) {
             if(n.getState().getStatus().isComplete()) {
@@ -45,7 +45,7 @@ public class DeterministicGameTree {
         return false;
     }
 
-    public void fillOutChildren(StateNode node) throws BoardGameEngineException {
+    public void fillOutChildren(StateNode node) {
         if(!node.isChildrenFull()) {
             List<Action> actions = engine.getPossibleActions(node.getState());
 

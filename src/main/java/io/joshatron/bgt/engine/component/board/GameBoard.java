@@ -1,7 +1,6 @@
 package io.joshatron.bgt.engine.component.board;
 
 import io.joshatron.bgt.engine.component.Component;
-import io.joshatron.bgt.engine.exception.BoardGameEngineException;
 import lombok.Data;
 
 import java.util.ArrayList;
@@ -17,6 +16,6 @@ public abstract class GameBoard<T extends Component,L extends BoardLocation> imp
         allLocations = new ArrayList<>();
     }
 
-    public abstract T getTile(L location) throws BoardGameEngineException;
+    public abstract T getTile(L location);
     public abstract boolean onBoard(L location);
 }

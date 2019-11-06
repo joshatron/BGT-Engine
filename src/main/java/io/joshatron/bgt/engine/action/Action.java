@@ -12,7 +12,7 @@ import java.io.Serializable;
 public class Action implements Serializable {
     private PlayerIndicator player;
 
-    public static Action createFromString(String action) throws BoardGameEngineException {
+    public static Action createFromString(String action) {
         return new Action(PlayerIndicator.valueOf(action));
     }
 }

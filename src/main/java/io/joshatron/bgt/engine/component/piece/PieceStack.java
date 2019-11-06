@@ -20,7 +20,7 @@ public class PieceStack<P extends Piece> implements Component {
         pieces = new ArrayList<>();
     }
 
-    public void addPieces(List<P> pieces) throws BoardGameEngineException {
+    public void addPieces(List<P> pieces) {
         for(P piece : pieces) {
             if(piece == null) {
                 throw new BoardGameEngineException(BoardGameCommonErrorCode.INVALID_PIECE);
@@ -29,14 +29,14 @@ public class PieceStack<P extends Piece> implements Component {
         this.pieces.addAll(pieces);
     }
 
-    public void addPiece(P piece) throws BoardGameEngineException {
+    public void addPiece(P piece) {
         if(piece == null) {
             throw new BoardGameEngineException(BoardGameCommonErrorCode.INVALID_PIECE);
         }
         pieces.add(piece);
     }
 
-    public List<P> removePieces(int toRemove) throws BoardGameEngineException {
+    public List<P> removePieces(int toRemove) {
         if(toRemove < 0) {
             throw new BoardGameEngineException(BoardGameCommonErrorCode.INVALID_NUMBER);
         }
@@ -60,7 +60,7 @@ public class PieceStack<P extends Piece> implements Component {
         return pieces.get(pieces.size() - 1);
     }
 
-    public List<P> getTopPieces(int num) throws BoardGameEngineException {
+    public List<P> getTopPieces(int num) {
         if(num < 0) {
             throw new BoardGameEngineException(BoardGameCommonErrorCode.INVALID_NUMBER);
         }

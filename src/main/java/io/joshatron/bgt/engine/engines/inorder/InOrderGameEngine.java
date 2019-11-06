@@ -8,7 +8,7 @@ import io.joshatron.bgt.engine.action.ActionResult;
 
 public abstract class InOrderGameEngine<S extends InOrderGameState,G extends InOrderGameParameters,A extends Action> implements GameEngine<S,G,A> {
     protected abstract boolean isActionValid(S state, A action);
-    protected abstract ActionResult updateState(S state, A action) throws BoardGameEngineException;
+    protected abstract ActionResult updateState(S state, A action);
     protected abstract boolean isTurnDone(S state);
 
     @Override
@@ -24,12 +24,12 @@ public abstract class InOrderGameEngine<S extends InOrderGameState,G extends InO
         return isActionValid(state, action);
     }
 
-    private boolean isPlayersTurn(S state, A action) throws BoardGameEngineException {
+    private boolean isPlayersTurn(S state, A action) {
         return state.getCurrentPlayerInfo().getIdentifier() == action.getPlayer();
     }
 
     @Override
-    public void submitAction(S state, A action) throws BoardGameEngineException {
+    public void submitAction(S state, A action) {
         if(isLegalAction(state, action)) {
             ActionResult result = updateState(state, action);
             state.addToLog(action, result);

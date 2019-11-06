@@ -48,7 +48,7 @@ public enum PlayerIndicator {
         return acronym;
     }
 
-    public PlayerIndicator fromString(String player) throws BoardGameEngineException {
+    public PlayerIndicator fromString(String player) {
         for(PlayerIndicator playerIndicator : PlayerIndicator.values()) {
             if(playerIndicator.acronym.equalsIgnoreCase(player)) {
                 return playerIndicator;

@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Data
-public class GameState<S extends GameStatus, P extends PlayerInfo> implements Serializable {
+public class GameState<S extends GameStatus, P extends PlayerInfo, G> implements Serializable {
     private S status;
     private List<ActionPair> gameLog;
     private List<P> players;
@@ -30,11 +30,7 @@ public class GameState<S extends GameStatus, P extends PlayerInfo> implements Se
         this.players = players;
     }
 
-    public String getDisplayForPlayer(PlayerIndicator player) {
-        return "Display not implemented: " + this.toString();
-    }
-
-    public P getPlayerInfo(PlayerIndicator player) throws BoardGameEngineException {
+    public P getPlayerInfo(PlayerIndicator player) {
         Optional<P> info = players.stream().filter(playerInfo -> playerInfo.getIdentifier() == player).findFirst();
         if(info.isPresent()) {
             return info.get();
@@ -49,5 +45,9 @@ public class GameState<S extends GameStatus, P extends PlayerInfo> implements Se
 
     public ActionPair getLatestAction() {
         return gameLog.get(gameLog.size() - 1);
+    }
+
+    public G getPlayerSpecificState(PlayerIndicator player) {
+        throw new BoardGameEngineException(BoardGameCommonErrorCode.NOT_IMPLEMENTED);
     }
 }

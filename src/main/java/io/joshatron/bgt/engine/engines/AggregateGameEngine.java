@@ -16,12 +16,12 @@ public abstract class AggregateGameEngine<S extends GameState,G extends GamePara
     }
 
     @Override
-    public void submitAction(S state, A action) throws BoardGameEngineException {
+    public void submitAction(S state, A action) {
         getEngineForState(state).submitAction(state, action);
     }
 
     @Override
-    public List<A> getPossibleActions(S state) throws BoardGameEngineException {
+    public List<A> getPossibleActions(S state) {
         return getEngineForState(state).getPossibleActions(state);
     }
 }

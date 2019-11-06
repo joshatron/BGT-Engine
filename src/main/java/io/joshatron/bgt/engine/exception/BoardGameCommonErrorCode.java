@@ -13,7 +13,8 @@ public enum BoardGameCommonErrorCode implements BoardGameErrorCode {
     IN_ORDER_QUESTION_ONLY,
     TOO_MANY_PIECES_TO_REMOVE,
     INVALID_INPUT,
-    GAME_FINISHED;
+    GAME_FINISHED,
+    NOT_IMPLEMENTED;
 
     @Override
     public String getName() {

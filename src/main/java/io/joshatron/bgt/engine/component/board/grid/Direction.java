@@ -45,7 +45,7 @@ public enum Direction {
         return acronym;
     }
 
-    public static Direction fromString(String direction) throws BoardGameEngineException {
+    public static Direction fromString(String direction) {
         for(Direction dir : Direction.values()) {
             if(dir.acronym.equalsIgnoreCase(direction)) {
                 return dir;

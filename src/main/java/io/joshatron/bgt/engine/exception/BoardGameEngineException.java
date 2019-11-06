@@ -1,6 +1,6 @@
 package io.joshatron.bgt.engine.exception;
 
-public class BoardGameEngineException extends Exception {
+public class BoardGameEngineException extends RuntimeException {
     private BoardGameErrorCode code;
 
     public BoardGameEngineException(BoardGameErrorCode code) {
